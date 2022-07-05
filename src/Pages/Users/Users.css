@@ -1,0 +1,18 @@
+.user-section {
+    padding-left: 260px;
+    padding-right: 50px;
+    padding-top: 10px;
+}
+
+.user-label {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.user-search-field {
+    width: 500px;
+}
+
+.user-table {
+    padding-top: 20px;
+}

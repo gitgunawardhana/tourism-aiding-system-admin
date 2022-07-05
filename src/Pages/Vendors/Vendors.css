@@ -1,0 +1,29 @@
+.vendor-section {
+    padding-left: 260px;
+    padding-right: 50px;
+    padding-top: 10px;
+}
+
+.vendor-label {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.vendor-search-field {
+    width: 600px;
+}
+
+.vendor-table {
+    padding-top: 20px;
+}
+
+.vendor-new-button{
+    margin-left: 820px;
+}
+
+.row{
+    width: 100%;
+}
+.column{
+    display: inline-grid;
+}
