@@ -19,7 +19,7 @@ const VendorForm = props => {
                 <Box
                     component="form"
                     sx={{
-                        '& .MuiTextField-root': {m: 1, width: '50ch'},
+                        '& .MuiTextField-root': {m: 1, width: '47%'},
                     }}
                     noValidate
                     autoComplete="off"
@@ -37,7 +37,7 @@ const VendorForm = props => {
                         <TextField id="province" label="province" type="text"/>
                         <TextField id="postalCode" label="postalCode" type="text"/>
                         <FormControl
-                            sx={{ m: 1, width: '50ch' }}>
+                            sx={{ m: 1, width: '47%' }}>
                             <InputLabel id="vendor-type">Type</InputLabel>
                             <Select
                                 labelId="vendor-type"

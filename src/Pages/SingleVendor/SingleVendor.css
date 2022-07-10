@@ -1,0 +1,16 @@
+.single-vendor-section {
+    margin: 20px 250px;
+    width: calc(100% - 250px);
+}
+
+.main-label {
+    text-align: center;
+    font-size: 30px;
+    color: #00565B;
+}
+
+.main-hr{
+    color: #00565B;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

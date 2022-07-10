@@ -7,7 +7,7 @@ export const NavigationPanelData = [
     {
         title: 'Home',
         path: '/',
-        icon: <AiIcons.AiFillHome/>,
+        icon: <AiIcons.AiFillHome className="nav-menu-item-icon"/>,
         cName: 'nav-text'
     },
     {

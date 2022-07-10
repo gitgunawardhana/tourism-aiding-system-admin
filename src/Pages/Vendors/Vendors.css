@@ -2,6 +2,7 @@
     padding-left: 260px;
     padding-right: 50px;
     padding-top: 10px;
+    width: 100%;
 }
 
 .vendor-label {
@@ -10,20 +11,22 @@
 }
 
 .vendor-search-field {
-    width: 600px;
+    width: 100%;
 }
 
 .vendor-table {
     padding-top: 20px;
 }
 
-.vendor-new-button{
-    margin-left: 820px;
+.vendor-new-button {
+    margin-left: 70%;
 }
 
-.row{
+.row {
     width: 100%;
 }
-.column{
+
+.column {
     display: inline-grid;
+    width: 50%;
 }

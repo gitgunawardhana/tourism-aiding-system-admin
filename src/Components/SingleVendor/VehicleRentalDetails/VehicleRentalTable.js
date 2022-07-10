@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {Link} from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
+import "./VehicleRentalDetails.css";
 
 const columns = [
     {
@@ -18,45 +19,39 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'username',
-        label: 'Username',
+        id: 'name',
+        label: 'Name',
         minWidth: 100,
         align: 'center'
     },
     {
-        id: 'firstName',
-        label: 'First Name',
-        minWidth: 150,
+        id: 'numberOfSeats',
+        label: 'Number Of Seats',
+        minWidth: 100,
         align: 'center'
     },
     {
-        id: 'lastName',
-        label: 'Last Name',
-        minWidth: 150,
+        id: 'gearType',
+        label: 'Gear Type',
+        minWidth: 100,
         align: 'center'
     },
     {
-        id: 'nic',
-        label: 'NIC / Passport',
-        minWidth: 150,
-        align: 'center'
-    },
-    {
-        id: 'email',
-        label: 'Email',
-        minWidth: 150,
-        align: 'center'
-    },
-    {
-        id: 'mobile',
-        label: 'Mobile',
-        minWidth: 150,
+        id: 'availability',
+        label: 'Availability',
+        minWidth: 100,
         align: 'center'
     },
     {
         id: 'type',
         label: 'Type',
-        minWidth: 150,
+        minWidth: 100,
+        align: 'center'
+    },
+    {
+        id: 'location',
+        label: 'Location',
+        minWidth: 100,
         align: 'center'
     },
     {
@@ -64,35 +59,31 @@ const columns = [
         label: 'View More Details',
         minWidth: 100,
         align: 'center'
-    }
+    },
 ];
 
-function createData(id, username, firstName, lastName, nic, email, mobile, type,) {
+function createData(id, name, numberOfSeats, gearType, availability, type, location) {
+
     return {
         id,
-        username,
-        firstName,
-        lastName,
-        nic,
-        email,
-        mobile,
+        name,
+        numberOfSeats,
+        gearType,
+        availability,
         type,
-    };
+        location
+    }
 }
 
 const rows = [
-    createData(192, "Diluni", "Diluni", "Malsha", "199960700964", "diluni@gmail.com", "+94716064944", "ACCOMMODATION"),
-    createData(193, "Sanidu", "Sanidu", "Hasanka", "199860700964", "sanidu@gmail.com", "+94719064944", "ACCOMMODATION"),
-    createData(194, "Ishan", "Ishan", "Tharindu", "199860700924", "ishan@gmail.com", "+94715751121", "ACCOMMODATION"),
-    createData(195, "Sachini", "Sachini", "Deepashika", "199704700924", "sachini@gmail.com", "+94769608396", "ACCOMMODATION"),
-    createData(196, "Thilini", "Thilini", "Nisansala", "199712700924", "thilini@gmail.com", "+94711672789", "ACCOMMODATION"),
-    createData(197, "Yasmi", "Yasmi", "Navodya", "199806920924", "yasmi@gmail.com", "+94775341619", "ACCOMMODATION"),
-    createData(198, "Yureni", "Yureni", "Vidunika", "199805700924", "yureni@gmail.com", "+94712417816", "ACCOMMODATION"),
-    createData(199, "Ishara", "Ishara", "Madhuwanthi", "199892286924", "ishara@gmail.com", "+94771504857", "ACCOMMODATION"),
-    createData(200, "Subhashi", "Subhashi", "Sudharma", "199705792924", "subha@gmail.com", "+94717141520", "ACCOMMODATION"),
+    createData(23, "Suzuki Alto", 4, "MANUAL", "AVAILABLE", "SMALL", "Colombo"),
+    createData(78, "Toyota Prius", 5, "MANUAL", "AVAILABLE", "LARGE", "Colombo"),
+    createData(67, "Nissan March", 4, "AUTOMATIC", "NOT AVAILABLE", "MEDIUM", "Colombo"),
+    createData(98, "Toyota KDH", 6, "AUTOMATIC", "AVAILABLE", "PEOPLE CARRIER", "Colombo"),
+    createData(34, "Toyota Axio", 4, "AUTOMATIC", "AVAILABLE", "SMALL", "Colombo"),
 ];
 
-export default function StickyHeadTable() {
+export default function VehicleRentalTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -107,7 +98,7 @@ export default function StickyHeadTable() {
 
     return (
         <Paper sx={{width: '100%', overflow: 'hidden'}}>
-            <TableContainer sx={{maxHeight: 800}}>
+            <TableContainer sx={{maxHeight: 440}}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
@@ -115,7 +106,7 @@ export default function StickyHeadTable() {
                                 <TableCell
                                     key={column.id}
                                     align={column.align}
-                                    style={{minWidth: column.minWidth}}
+                                    style={{minWidth: column.minWidth, color: "#14292A", fontWeight: "bold"}}
                                 >
                                     {column.label}
                                 </TableCell>
@@ -133,7 +124,7 @@ export default function StickyHeadTable() {
                                             if (column.label === "View More Details") {
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        <Link to="/vendor">
+                                                        <Link to="#">
                                                             <FaIcons.FaEye className="view-more"/>
                                                         </Link>
                                                     </TableCell>

@@ -1,0 +1,10 @@
+.single-vendor-box h3{
+    color: #00565B;
+}
+
+.view-more{
+    font-size: 1.5rem;
+    background: none;
+    margin: 0;
+    position: relative;
+}
