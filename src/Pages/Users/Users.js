@@ -5,18 +5,21 @@ import TextField from "@mui/material/TextField";
 
 function Users() {
     return (
-        <div className='user-section'>
-            <p className="user-label">Users</p>
-            <hr/>
-            <TextField
-                className="user-search-field"
-                margin="normal"
-                id="user-search"
-                label="Search Users"
-                variant="outlined"
-            />
-            <div className="user-table">
-                <UserTable/>
+        <div className='main-section'>
+            <div className="title-box">
+                <p className="title">Users</p>
+            </div>
+            <div className="card">
+                <TextField
+                    className="user-search-field"
+                    margin="normal"
+                    id="user-search"
+                    label="Search Users"
+                    variant="outlined"
+                />
+                <div className="user-table">
+                    <UserTable/>
+                </div>
             </div>
         </div>
     )

@@ -1,31 +1,28 @@
-import React, {useState} from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
+import React from "react";
+import Home from "../../Assets/NavigationPanel/home.png";
+import Vendors from "../../Assets/NavigationPanel/vendors.png";
+import Users from "../../Assets/NavigationPanel/users.png";
+import Configurations from "../../Assets/NavigationPanel/configurations.png";
 
 export const NavigationPanelData = [
     {
         title: 'Home',
         path: '/',
-        icon: <AiIcons.AiFillHome className="nav-menu-item-icon"/>,
-        cName: 'nav-text'
+        icon: <img src={Home} alt="Home Icon" className="nav-bar-icon"/>
     },
     {
         title: 'Vendors',
         path: '/vendors',
-        icon: <AiIcons.AiFillHome/>,
-        cName: 'nav-text'
+        icon: <img src={Vendors} alt="Vendors Icon" className="nav-bar-icon"/>
     },
     {
         title: 'Users',
         path: '/users',
-        icon: <AiIcons.AiFillHome/>,
-        cName: 'nav-text'
+        icon: <img src={Users} alt="Users Icon" className="nav-bar-icon"/>
     },
     {
         title: 'Configurations',
         path: '/configurations',
-        icon: <AiIcons.AiFillHome/>,
-        cName: 'nav-text'
+        icon: <img src={Configurations} alt="Configuration Icon" className="nav-bar-icon"/>
     },
 ]

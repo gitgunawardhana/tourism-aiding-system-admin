@@ -1,43 +1,67 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
 import {NavigationPanelData} from "./NaigationPanelData";
 import './NavigationPanel.css';
-import {IconContext} from "react-icons";
 
 function NavigationPanel() {
-    const [sidebar, setSidebar] = useState(true);
-    const showSidebar = () => setSidebar(!sidebar);
+    // const navButtonClick = (title) => {
+    //     switch (title) {
+    //         case "Home":
+    //             setHome(true);
+    //             setVendor(false);
+    //             setUser(false);
+    //             setConfiguration(false);
+    //             break;
+    //         case "Vendors":
+    //             setHome(false);
+    //             setVendor(true);
+    //             setUser(false);
+    //             setConfiguration(false);
+    //             break;
+    //         default:
+    //             setCommon(true);
+    //     }
+    // }
+    // const [home, setHome] = useState(false);
+    // const [vendor, setVendor] = useState(false);
+    // const [user, setUser] = useState(false);
+    // const [configuration, setConfiguration] = useState(false);
+    // const [common, setCommon] = useState(false);
+
     return (
         <>
-            <IconContext.Provider value={{color: '#fff'}}>
-                <div className='nav-panel'>
-                    <Link to="#" className='menu-bars'>
-                        <FaIcons.FaBars onClick={showSidebar}/>
-                    </Link>
-
-                </div>
-                <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-                    <ul className='nav-menu-items'>
-                        <li className="nav-panel-toggle">
-                            {/*<Link to="#" className='menu-bars'>*/}
-                            {/*<FaIcons.FaBars onClick={showSidebar}/>*/}
-                            {/*</Link>*/}
-                            <span className="company-name">ROADSIGN ADMIN PANEL</span>
-                        </li>
-                        {NavigationPanelData.map((item, index) => {
-                            return (
-                                <li key={index} className={item.cName}>
-                                    <Link to={item.path}>
-                                        {item.icon}
-                                        <span>{item.title}</span>
-                                    </Link>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </nav>
-            </IconContext.Provider>
+            <div className="lower-nav-bar">
+                {NavigationPanelData.map((item, index) => {
+                    // switch (item.title) {
+                    //     case "Home":
+                    //         setCommon(home);
+                    //         break;
+                    //     case "Users":
+                    //         setCommon(user);
+                    //         break;
+                    //     case "Vendors":
+                    //         setCommon(vendor);
+                    //         break;
+                    //     case "Configurations":
+                    //         setCommon(configuration);
+                    //         break;
+                    //     default:
+                    //         setCommon(true);
+                    // }
+                    return (
+                        <div key={index} className="nav-bar-item">
+                            <Link to={item.path}>
+                                {item.icon}
+                                <br/>
+                                <span>{item.title}</span>
+                            </Link>
+                        </div>
+                    )
+                })}
+            </div>
+            <div className="upper-nav-bar">
+                <h1>ROADSIGN</h1>
+            </div>
         </>
     )
 }

@@ -1,86 +1,56 @@
-.nav-panel {
-    background-color: white;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-
-}
-
-.menu-bars {
-    margin-left: 2rem;
-    font-size: 1.5rem;
-    background: none;
-}
-
-.nav-menu {
-    background-color: white;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    width: 250px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
+.upper-nav-bar {
     position: fixed;
+    z-index: 999;
     top: 0;
-    left: -100%;
-    transition: 850ms;
-}
-
-.nav-menu.active{
-    left: 0;
-    transition: 350ms;
-}
-
-.nav-text{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 8px 0 8px 16px;
-    list-style: none;
-    height: 60px;
-}
-
-.nav-text a{
-    text-decoration: none;
-    color: #14292A;
-    font-size: 18px;
-    width: 95%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    border-radius: 4px;
-}
-
-.nav-text a:hover{
+    width: 100%;
+    height: 80px;
     background-color: #00565B;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.upper-nav-bar h1 {
+    padding: 20px;
+    font-weight: lighter;
     color: white;
 }
 
-.nav-menu-items{
+.lower-nav-bar {
+    position: fixed;
+    z-index: 998;
+    top: 80px;
     width: 100%;
-}
-
-.nav-panel-toggle{
+    height: 90px;
     background-color: white;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-span{
-    margin-left: 16px;
+.nav-bar-item {
+    position: relative;
+    display: inline-grid;
+    width: 170px;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    list-style: none;
+    cursor: pointer;
 }
 
-.company-name{
-    color: #14292A;
-    font-weight: lighter;
-    font-size: 20px;
+.nav-bar-item a {
+    text-decoration: none;
+    color: #00565b;
+    margin: 10px 25px;
+    padding: 5px;
 }
 
-.nav-menu-item-icon{
-    color: #00565B;
+.nav-bar-item-active a {
+    text-decoration: none;
+    color: #00565b;
+    margin: 10px 25px;
+    padding: 5px;
+    border: 2px solid #00565B;
+    border-radius: 15px;
+}
+
+.nav-bar-icon {
+    width: 30px;
 }

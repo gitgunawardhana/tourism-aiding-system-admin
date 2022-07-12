@@ -12,37 +12,37 @@ function Vendors() {
         setIsFormOpen(!isFormOpen);
     }
     return (
-        <div className='vendor-section'>
-            <p className="vendor-label">Vendors</p>
-
-            <hr/>
-
-            <div className="row">
-                <div className="column">
-                    <TextField
-                        className="vendor-search-field"
-                        margin="normal"
-                        id="vendor-search"
-                        label="Search Vendors"
-                        variant="outlined"
-                    />
-                </div>
-                <div className="column">
-                    <div className="vendor-new-button">
-                        <Button
-                            variant="contained"
-                            size="large"
-                            onClick={toggleFormPopup}>
-                            Add New Vendor
-                        </Button>
+        <div className='main-section'>
+            <div className="title-box">
+                <p className="title">Vendors</p>
+            </div>
+            <div className="card">
+                <div className="row">
+                    <div className="column">
+                        <TextField
+                            className="vendor-search-field"
+                            margin="normal"
+                            id="vendor-search"
+                            label="Search Vendors"
+                            variant="outlined"
+                        />
+                    </div>
+                    <div className="column">
+                        <div className="vendor-new-button">
+                            <Button
+                                variant="contained"
+                                size="large"
+                                onClick={toggleFormPopup}>
+                                Add New Vendor
+                            </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="vendor-table">
-                <VendorTable/>
+                <div className="vendor-table">
+                    <VendorTable/>
+                </div>
             </div>
-
             {isFormOpen && <VendorForm
                 handleClose={toggleFormPopup}
             />}

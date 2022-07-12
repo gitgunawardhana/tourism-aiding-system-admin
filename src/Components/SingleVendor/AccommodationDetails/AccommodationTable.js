@@ -123,7 +123,7 @@ export default function AccommodationTable() {
                                             if (column.label === "View More Details") {
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        <Link to="#">
+                                                        <Link to="/accommodation">
                                                             <FaIcons.FaEye className="view-more"/>
                                                         </Link>
                                                     </TableCell>

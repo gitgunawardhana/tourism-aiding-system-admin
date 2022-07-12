@@ -6,15 +6,17 @@ import VehicleRentalDetails from "../../Components/SingleVendor/VehicleRentalDet
 
 function SingleVendor() {
     return (
-        <div className="single-vendor-section">
-            <p className="main-label">Single Vendor Details</p>
-            <hr className="main-hr"/>
-            <SingleVendorForm/>
-            <AccommodationDetails/>
-            <VehicleRentalDetails/>
+        <div className="main-section">
+            <div className="title-box">
+                <p className="title">Single Vendor Details</p>
+            </div>
+            <div className="card">
+                <SingleVendorForm/>
+                <AccommodationDetails/>
+                <VehicleRentalDetails/>
+            </div>
         </div>
-    )
-        ;
+    );
 }
 
 export default SingleVendor;

@@ -3,7 +3,7 @@ import "./SingleAccommodation.css";
 
 function SingleAccommodation() {
     return (
-        <div className="single-accommodation-section">
+        <div className="main-section">
         </div>
     );
 }
