@@ -1,6 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 
-function Configurations(){
+function Configurations() {
+
+    useEffect(() => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }, []);
+
     return (
         <div className="configurations">
             <h1>Configurations</h1>
