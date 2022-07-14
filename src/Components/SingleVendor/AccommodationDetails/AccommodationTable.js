@@ -7,8 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
+import "./AccommodationDetails.css";
 
 const columns = [
     {
@@ -54,8 +55,8 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'viewMoreDetails',
-        label: 'View More Details',
+        id: 'moreActions',
+        label: 'More Actions',
         minWidth: 100,
         align: 'center'
     },
@@ -95,6 +96,15 @@ export default function AccommodationTable() {
         setPage(0);
     };
 
+    const navigate = useNavigate();
+    const viewAccommodation = (action) => {
+        navigate("/accommodation/view");
+    };
+
+    const editAccommodation = (action) => {
+        navigate("/accommodation/edit");
+    };
+
     return (
         <Paper sx={{width: '100%', overflow: 'hidden'}}>
             <TableContainer sx={{maxHeight: 440}}>
@@ -120,12 +130,15 @@ export default function AccommodationTable() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
-                                            if (column.label === "View More Details") {
+                                            if (column.label === "More Actions") {
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        <Link to="/accommodation">
-                                                            <FaIcons.FaEye className="view-more"/>
-                                                        </Link>
+                                                        <div className="more-action more-action-view" onClick={viewAccommodation}>
+                                                            <FaIcons.FaEye/>
+                                                        </div>
+                                                        <div className="more-action more-action-edit" onClick={editAccommodation}>
+                                                            <FaIcons.FaPencilRuler/>
+                                                        </div>
                                                     </TableCell>
                                                 );
                                             } else {
