@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import VendorTable from "../../Components/Vendors/VendorTable/VendorTable";
 import "./Vendors.css"
@@ -6,6 +6,11 @@ import VendorForm from "../../Components/Vendors/VendorForm/VendorForm";
 import Button from "@mui/material/Button";
 
 function Vendors() {
+
+    useEffect(() => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }, []);
+
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const toggleFormPopup = () => {
