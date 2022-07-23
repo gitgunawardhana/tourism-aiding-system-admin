@@ -25,18 +25,19 @@
     cursor: pointer;
     width: 30px;
     height: 30px;
-    border: 1px solid black;
-    border-radius: 50%;
+    border: none;
+    /*border-radius: 50%;*/
     position: fixed;
     right: 25%;
     top: 15px;
+    background-color: transparent;
     transform: rotate(45deg);
 }
 
 .btn-close p {
     display: inline-block;
     margin: auto;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 hr{
