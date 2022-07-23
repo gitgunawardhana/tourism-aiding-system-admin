@@ -4,7 +4,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>snds</h1>
     </div>
   );
 }
