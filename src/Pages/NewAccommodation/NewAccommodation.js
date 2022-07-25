@@ -1,14 +1,10 @@
-import React, {useEffect} from "react";
+import React from "react";
 import "./NewAccommodation.css";
 import NewAccommodationForm from "../../Components/SingleAccommodation/NewAccommodationForm/NewAccommodationForm";
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
 function NewAccommodation() {
-
-    useEffect(() => {
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-    }, []);
 
     const CreateButton = styled(Button)(({theme}) => ({
         backgroundColor: '#00565b',
