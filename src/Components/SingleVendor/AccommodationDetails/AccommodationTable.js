@@ -98,11 +98,7 @@ export default function AccommodationTable() {
 
     const navigate = useNavigate();
     const viewAccommodation = (action) => {
-        navigate("/accommodation/view");
-    };
-
-    const editAccommodation = (action) => {
-        navigate("/accommodation/edit");
+        navigate("/accommodation");
     };
 
     return (
@@ -133,11 +129,9 @@ export default function AccommodationTable() {
                                             if (column.label === "More Actions") {
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        <div className="more-action more-action-view" onClick={viewAccommodation}>
+                                                        <div className="more-action more-action-view"
+                                                             onClick={viewAccommodation}>
                                                             <FaIcons.FaEye/>
-                                                        </div>
-                                                        <div className="more-action more-action-edit" onClick={editAccommodation}>
-                                                            <FaIcons.FaPencilRuler/>
                                                         </div>
                                                     </TableCell>
                                                 );
