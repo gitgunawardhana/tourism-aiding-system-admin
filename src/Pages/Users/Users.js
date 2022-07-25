@@ -1,13 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import UserTable from "../../Components/Users/UserTable/UserTable";
 import "./Users.css"
 import TextField from "@mui/material/TextField";
 
 function Users() {
-
-    useEffect(() => {
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-    }, []);
 
     return (
         <div className='main-section'>
