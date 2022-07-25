@@ -470,12 +470,13 @@ const rows = [
     createData(192, "Diluni", "Malsha", "199960700964", "diluni@gmail.com", "+94716064944", "Galle", "Sri Lanka"),
     createData(193, "Sanidu", "Hasanka", "199860700964", "sanidu@gmail.com", "+94719064944", "Kalutara", "Sri Lanka"),
     createData(194, "Ishan", "Tharindu", "199860700924", "ishan@gmail.com", "+94715751121", "Matara", "Sri Lanka"),
+    createData(200, "Subhashi", "Sudharma", "199705792924", "subha@gmail.com", "+94717141520", "Balangoda", "Sri Lanka"),
+    createData(200, "Sandika", "Sandika", "199705792924", "sandika@gmail.com", "+94703148320", "Kurunagala", "Sri Lanka"),
     createData(195, "Sachini", "Deepashika", "199704700924", "sachini@gmail.com", "+94769608396", "Anuradhapura", "Sri Lanka"),
     createData(196, "Thilini", "Nisansala", "199712700924", "thilini@gmail.com", "+94711672789", "Hanguranketha", "Sri Lanka"),
     createData(197, "Yasmi", "Navodya", "199806920924", "yasmi@gmail.com", "+94775341619", "Dankotuwa", "Sri Lanka"),
     createData(198, "Yureni", "Vidunika", "199805700924", "yureni@gmail.com", "+94712417816", "Rathnapura", "Sri Lanka"),
     createData(199, "Ishara", "Madhuwanthi", "199892286924", "ishara@gmail.com", "+94771504857", "Badulla", "Sri Lanka"),
-    createData(200, "Subhashi", "Sudharma", "199705792924", "subha@gmail.com", "+94717141520", "Balangoda", "Sri Lanka"),
 ];
 
 export default function StickyHeadTable() {
