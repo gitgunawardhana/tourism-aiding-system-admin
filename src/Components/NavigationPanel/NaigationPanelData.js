@@ -12,6 +12,11 @@ export const NavigationPanelData = [
         icon: <img src={Dashboard} alt="Dashboard Icon" className="nav-bar-icon"/>
     },
     {
+        title: 'Locations',
+        path: '/locations',
+        icon: <img src={Locations} alt="Locations Icon" className="nav-bar-icon"/>
+    },
+    {
         title: 'Vendors',
         path: '/vendors',
         icon: <img src={Vendors} alt="Vendors Icon" className="nav-bar-icon"/>
@@ -25,10 +30,5 @@ export const NavigationPanelData = [
         title: 'Configurations',
         path: '/configurations',
         icon: <img src={Configurations} alt="Configuration Icon" className="nav-bar-icon"/>
-    },
-    {
-        title: 'Locations',
-        path: '/location',
-        icon: <img src={Locations} alt="Locations Icon" className="nav-bar-icon"/>
     },
 ]
