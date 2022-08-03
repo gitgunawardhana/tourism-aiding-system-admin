@@ -18,16 +18,19 @@ function SingleAccommodation() {
     }));
 
     return (
-        <div className="main-section">
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Single Accommodation Details</p>
+                <p className="sub-title">Vendor / Accommodation / View Accommodation</p>
             </div>
-            <div className="card">
-                <SingleAccommodationForm/>
+            <div className="main-section">
+                <div className="card">
+                    <SingleAccommodationForm/>
+                </div>
+                <div className="read-only-filter">
+                </div>
             </div>
-            <div className="read-only-filter">
-            </div>
-        </div>
+        </>
     );
 }
 

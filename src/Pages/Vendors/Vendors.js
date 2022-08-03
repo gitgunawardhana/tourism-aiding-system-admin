@@ -5,28 +5,26 @@ import "./Vendors.css"
 
 function Vendors() {
     return (
-        <div className='main-section'>
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Vendors</p>
+                <p className="sub-title">Vendors</p>
             </div>
-            <div className="card">
-                <div className="row">
-                    <div className="column">
-                        <TextField
-                            className="vendor-search-field"
-                            margin="normal"
-                            id="vendor-search"
-                            label="Search Vendors"
-                            variant="outlined"
-                        />
+            <div className='main-section'>
+                <div className="card">
+                    <TextField
+                        className="vendor-search-field"
+                        margin="normal"
+                        id="vendor-search"
+                        label="Search Vendors"
+                        variant="outlined"
+                    />
+                    <div className="vendor-table">
+                        <VendorTable/>
                     </div>
                 </div>
-
-                <div className="vendor-table">
-                    <VendorTable/>
-                </div>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -9,17 +9,20 @@ function Locations() {
         setIsFormOpen(!isFormOpen);
     }
     return (
-        <div className='main-section'>
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Locations</p>
+                <p className="sub-title">Locations</p>
             </div>
-            <div className="card">
-                <AllLocations/>
+            <div className='main-section'>
+                <div className="card">
+                    <AllLocations/>
+                </div>
+                {isFormOpen && <VendorForm
+                    handleClose={toggleFormPopup}
+                />}
             </div>
-            {isFormOpen && <VendorForm
-                handleClose={toggleFormPopup}
-            />}
-        </div>
+        </>
     )
 }
 

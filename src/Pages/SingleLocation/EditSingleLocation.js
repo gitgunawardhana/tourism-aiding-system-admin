@@ -16,21 +16,23 @@ function EditSingleLocation() {
             fontWeight: 'bold'
         },
         width: '50%',
-        marginLeft: '25%'
+        marginLeft: '25%',
+        marginBottom: '20px'
     }));
 
     return (
-        <div className="main-section">
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Edit Location Details</p>
+                <p className="sub-title">Locations / Edit Location</p>
             </div>
-            <div className="card">
+            <div className="main-section">
                 <SingleLocationForm id={id}/>
                 <UpdateButton variant="contained" size="large">
                     Update Location
                 </UpdateButton>
             </div>
-        </div>
+        </>
     );
 }
 

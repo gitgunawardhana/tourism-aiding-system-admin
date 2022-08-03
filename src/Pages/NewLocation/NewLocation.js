@@ -1,20 +1,19 @@
 import React from "react";
 import "./NewLocation.css";
-import {styled} from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import NewLocationForm from "../../Components/Locations/NewLocationForm/NewLocationForm";
 
 function NewLocation() {
 
     return (
-        <div className="main-section">
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Add New Location</p>
+                <p className="sub-title">Locations / Create Location</p>
             </div>
-            <div className="card">
+            <div className="main-section">
                 <NewLocationForm/>
             </div>
-        </div>
+        </>
     );
 }
 

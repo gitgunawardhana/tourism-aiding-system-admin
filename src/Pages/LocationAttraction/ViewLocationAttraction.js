@@ -17,14 +17,15 @@ function ViewLocationAttraction() {
         marginLeft: '25%'
     }));
     return (
-        <div className="main-section">
-            <div className="title-box">
-                <p className="title">View Location Attraction</p>
+        <>
+            <div className="lower-nav-bar">
+                <p className="title">Single Location Attraction Details</p>
+                <p className="sub-title">Locations / Attractions / View Attraction</p>
             </div>
-            <div className="card">
+            <div className="main-section">
                 <ViewLocationAttractionForm/>
             </div>
-        </div>
+        </>
     );
 }
 

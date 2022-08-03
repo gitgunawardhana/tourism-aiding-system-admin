@@ -16,17 +16,20 @@ function NewAccommodation() {
         marginLeft: '25%'
     }));
     return (
-        <div className="main-section">
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Create New Accommodation</p>
+                <p className="sub-title">Vendor / Accommodation / Create Accommodation</p>
             </div>
-            <div className="card">
-                <NewAccommodationForm/>
-                <CreateButton variant="contained" size="large">
-                    Create New Accommodation
-                </CreateButton>
+            <div className="main-section">
+                <div className="card">
+                    <NewAccommodationForm/>
+                    <CreateButton variant="contained" size="large">
+                        Create New Accommodation
+                    </CreateButton>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

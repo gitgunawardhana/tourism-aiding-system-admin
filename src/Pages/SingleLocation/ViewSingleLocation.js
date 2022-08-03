@@ -8,15 +8,16 @@ import {useParams} from "react-router";
 function ViewSingleLocation() {
     let id = useParams().id;
     return (
-        <div className="main-section">
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Single Location Details</p>
+                <p className="sub-title">Locations / View Location</p>
             </div>
-            <div className="card">
-                <SingleLocationForm action="view" id={id}/>
-                <AllLocationAttractions/>
+            <div className="main-section">
+                    <SingleLocationForm action="view" id={id}/>
+                    <AllLocationAttractions/>
             </div>
-        </div>
+        </>
     );
 }
 

@@ -17,17 +17,18 @@ function NewLocationAttraction() {
         marginLeft: '25%'
     }));
     return (
-        <div className="main-section">
-            <div className="title-box">
+        <>
+            <div className="lower-nav-bar">
                 <p className="title">Add New Location Attraction</p>
+                <p className="sub-title">Locations / Attractions / Create Attraction</p>
             </div>
-            <div className="card">
+            <div className="main-section">
                 <NewLocationAttractionForm/>
                 <CreateButton variant="contained" size="large">
                     Add New Location Attraction
                 </CreateButton>
             </div>
-        </div>
+        </>
     );
 }
 
