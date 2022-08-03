@@ -73,7 +73,7 @@ function SingleLocationForm(props) {
 
     return (
         <>
-            <div className="location-form">
+            <div className="card">
                 <h3>Basic Details</h3>
                 <hr/>
                 <Box
@@ -83,6 +83,9 @@ function SingleLocationForm(props) {
                 >
                     <div>
                         <TextField id="name" label="Location Name" type="text" value={name}
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
                                    sx={{m: 1, width: '48%'}}/>
                         <FormControl
                             sx={{m: 1, width: '48%'}}>

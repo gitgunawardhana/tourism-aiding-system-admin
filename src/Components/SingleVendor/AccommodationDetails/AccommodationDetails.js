@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 
 const AccommodationDetails = props => {
     return (
-        <div className="single-vendor-box">
+        <div className="card">
             <Grid container spacing={2}>
                 <Grid item xs={9}>
                     <h3>Provided Accommodation Details</h3>

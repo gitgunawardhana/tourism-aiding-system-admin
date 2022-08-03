@@ -152,12 +152,13 @@ function NewLocationForm() {
             fontWeight: 'bold'
         },
         width: '50%',
-        marginLeft: '25%'
+        marginLeft: '25%',
+        marginBottom: '20px'
     }));
 
     return (
         <>
-            <div className="location-form">
+            <div className="card">
                 <h3>Basic Details</h3>
                 <hr/>
                 <Box

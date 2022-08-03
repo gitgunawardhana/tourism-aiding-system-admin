@@ -1,11 +1,12 @@
 .upper-nav-bar {
     position: fixed;
-    z-index: 999;
+    z-index: 998;
     top: 0;
+    left: 250px;
     width: 100%;
-    height: 80px;
-    background-color: #00565B;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    height: 60px;
+    background-color: white;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 }
 
 .upper-nav-bar h1 {
@@ -14,43 +15,58 @@
     color: white;
 }
 
-.lower-nav-bar {
-    position: fixed;
-    z-index: 998;
-    top: 80px;
-    width: 100%;
-    height: 90px;
-    background-color: white;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-}
-
 .nav-bar-item {
     position: relative;
     display: inline-grid;
-    width: 170px;
-    font-size: 18px;
-    font-weight: normal;
-    text-align: center;
+    width: 100%;
+    font-size: 15px;
+    font-weight: lighter;
     list-style: none;
     cursor: pointer;
 }
 
 .nav-bar-item a {
     text-decoration: none;
-    color: #00565b;
+    color: #c6c6c6;
     margin: 10px 25px;
     padding: 5px;
+}
+
+.nav-bar-item a:hover {
+    color: white;
 }
 
 .nav-bar-item-active a {
     text-decoration: none;
-    color: #00565b;
     margin: 10px 25px;
     padding: 5px;
     border: 2px solid #00565B;
     border-radius: 15px;
+    color: white;
 }
 
 .nav-bar-icon {
-    width: 30px;
+    width: 22px;
+    margin: 5px;
+}
+
+.logo-name {
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 15px;
+    border-bottom: 1px solid #9a9a9a;
+}
+
+.side-bar {
+    position: fixed;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #00565B;
+    z-index: 999;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 }

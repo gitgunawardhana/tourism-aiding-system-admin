@@ -1,14 +1,7 @@
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import "./LocationAttractionForm.css";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -41,7 +34,7 @@ function EditLocationAttractionForm() {
 
     return (
         <>
-            <div className="location-form">
+            <div className="card">
                 <h3>Basic Details</h3>
                 <hr/>
                 <Box

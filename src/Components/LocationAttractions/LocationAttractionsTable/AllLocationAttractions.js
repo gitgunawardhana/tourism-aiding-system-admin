@@ -122,7 +122,7 @@ function AllLocationAttractions() {
     const handleChange = (event) => {
     };
     return (
-        <div className="single-vendor-box">
+        <div className="card">
             <h3>Attractions around the Location</h3>
             <hr/>
             <Grid container spacing={2}>

@@ -33,7 +33,7 @@ function ViewLocationAttractionForm() {
 
     return (
         <>
-            <div className="location-form">
+            <div className="card">
                 <h3>Basic Details</h3>
                 <hr/>
                 <Box
@@ -44,8 +44,8 @@ function ViewLocationAttractionForm() {
                     <div>
                         <TextField
                             InputProps={{
-                            readOnly: true,
-                        }}
+                                readOnly: true,
+                            }}
                             id="name" label="Location Attraction Name" type="text" sx={{m: 1, width: '97%'}}/>
                         <TextField
                             InputProps={{

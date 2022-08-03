@@ -6,21 +6,20 @@ import './NavigationPanel.css';
 function NavigationPanel() {
     return (
         <>
-            <div className="lower-nav-bar">
+            <div className="upper-nav-bar">
+                <h1>ROADSIGN ADMIN PANEL</h1>
+            </div>
+            <div className="side-bar">
+                <div className="logo-name">ROADSIGN</div>
                 {NavigationPanelData.map((item, index) => {
                     return (
                         <div key={index} className="nav-bar-item">
                             <Link to={item.path}>
-                                {item.icon}
-                                <br/>
                                 <span>{item.title}</span>
                             </Link>
                         </div>
                     )
                 })}
-            </div>
-            <div className="upper-nav-bar">
-                <h1>ROADSIGN ADMIN PANEL</h1>
             </div>
         </>
     )

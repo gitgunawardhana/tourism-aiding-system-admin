@@ -4,7 +4,7 @@ import "./VehicleRentalDetails.css";
 
 const VehicleRentalDetails = props => {
     return (
-        <div className="single-vendor-box">
+        <div className="card">
             <h3>Provided Vehicle Rental Details</h3>
             <hr/>
             <VehicleRentalTable/>

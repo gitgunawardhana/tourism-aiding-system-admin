@@ -41,7 +41,7 @@ function NewLocationAttractionForm() {
 
     return (
         <>
-            <div className="location-form">
+            <div className="card">
                 <h3>Basic Details</h3>
                 <hr/>
                 <Box
