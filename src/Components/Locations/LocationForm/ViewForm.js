@@ -5,16 +5,15 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import "./SingleLocationForm.css";
+import "./LocationForm.css";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
 
-function SingleLocationForm(props) {
+function ViewForm(props) {
 
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -58,19 +57,6 @@ function SingleLocationForm(props) {
             })
     }
 
-    const handleImageChange = event => {
-        let image = event.target.files[0];
-        let url = URL.createObjectURL(image);
-        let items = [];
-        {
-            locationPictures.map((item) => (
-                items.push(item)
-            ))
-        }
-        items.push(url);
-        setLocationPictures(items);
-    };
-
     return (
         <>
             <div className="card">
@@ -82,7 +68,8 @@ function SingleLocationForm(props) {
                     autoComplete="off"
                 >
                     <div>
-                        <TextField id="name" label="Location Name" type="text" value={name}
+                        <TextField id="name" label="Location Name" type="text"
+                                   value={name}
                                    InputProps={{
                                        readOnly: true,
                                    }}
@@ -107,6 +94,9 @@ function SingleLocationForm(props) {
                             multiline
                             maxRows={10}
                             value={description}
+                            InputProps={{
+                                readOnly: true,
+                            }}
                             sx={{m: 1, width: '97%'}}
                         />
                         <TextField
@@ -117,12 +107,20 @@ function SingleLocationForm(props) {
                                 shrink: true,
                             }}
                             value={minimumSpendingDays}
-                            InputProps={{inputProps: {min: 1, max: 100}}}
+                            InputProps={{inputProps: {min: 1, max: 100}, readOnly: true}}
                             sx={{m: 1, width: '31%'}}
                         />
-                        <TextField id="latitude" label="Latitude" type="text" value={latitude}
+                        <TextField id="latitude" label="Latitude" type="text"
+                                   value={latitude}
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
                                    sx={{m: 1, width: '32%'}}/>
-                        <TextField id="longitude" label="Longitude" type="text" value={longitude}
+                        <TextField id="longitude" label="Longitude" type="text"
+                                   value={longitude}
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
                                    sx={{m: 1, width: '32%'}}/>
                     </div>
                 </Box>
@@ -136,7 +134,8 @@ function SingleLocationForm(props) {
                     <div>
                         <FormGroup>
                             {activities.map((item) => (
-                                <FormControlLabel control={<Checkbox defaultChecked={item.checked}/>} label={item.activityName}/>
+                                <FormControlLabel control={<Checkbox disabled defaultChecked={item.checked}/>}
+                                                  label={item.activityName}/>
                             ))}
                         </FormGroup>
                     </div>
@@ -149,12 +148,6 @@ function SingleLocationForm(props) {
                     autoComplete="off"
                 >
                     <div>
-                        <div className={props.action === "view" ? "image-upload-hidden" : "image-upload-visible"}>
-                            <Button color="success" variant="outlined" component="label">
-                                Upload Image
-                                <input hidden accept="image/*" multiple type="file" onChange={handleImageChange}/>
-                            </Button>
-                        </div>
                         <ImageList sx={{m: "2%", width: "96%", height: 400}} cols={3} rowHeight={3}>
                             {locationPictures.map((item) => (
                                 <ImageListItem>
@@ -172,4 +165,4 @@ function SingleLocationForm(props) {
     );
 }
 
-export default SingleLocationForm;
+export default ViewForm;

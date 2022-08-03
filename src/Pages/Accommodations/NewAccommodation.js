@@ -1,5 +1,5 @@
 import React from "react";
-import "./NewAccommodation.css";
+import "./Accommodations.css";
 import NewAccommodationForm from "../../Components/SingleAccommodation/NewAccommodationForm/NewAccommodationForm";
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";

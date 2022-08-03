@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import "./NewLocationForm.css";
+import "./LocationForm.css";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -16,8 +16,9 @@ import axios from "axios";
 import {styled} from "@mui/material/styles";
 import {useNavigate} from "react-router";
 
-function NewLocationForm() {
+function ViewForm(props) {
 
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [longitude, setLongitude] = useState(0.0);
     const [latitude, setLatitude] = useState(0.0);
@@ -34,23 +35,32 @@ function NewLocationForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        getLocationDetails();
         getProvinces();
-        getActivities();
     }, []);
+
+    const getLocationDetails = () => {
+        axios.get("http://localhost:8080/admin/location/" + props.id)
+            .then(res => {
+                const response = res.data.body;
+                console.log(response);
+                setId(response.id);
+                setName(response.name);
+                setLongitude(response.longitude);
+                setLatitude(response.latitude);
+                setDescription(response.description);
+                setMinimumSpendingDays(response.minimumSpendingDays);
+                setProvinceId(response.provinceId);
+                setLocationPictures(response.locationPictures);
+                setActivities(response.locationActivities);
+            })
+    }
 
     const getProvinces = () => {
         axios.get("http://localhost:8080/admin/province/names")
             .then(res => {
                 const response = res.data.body;
                 setProvinces(response);
-            })
-    }
-
-    const getActivities = () => {
-        axios.get("http://localhost:8080/admin/activity")
-            .then(res => {
-                const response = res.data.body;
-                setActivities(response);
             })
     }
 
@@ -83,7 +93,6 @@ function NewLocationForm() {
         setLocationPictures(items);
         setLocationPicturesBase64(itemsBase64);
     };
-
     const handleNameChange = event => {
         setName(event.target.value);
     }
@@ -145,7 +154,7 @@ function NewLocationForm() {
             })
     }
 
-    const CreateButton = styled(Button)(({theme}) => ({
+    const UpdateButton = styled(Button)(({theme}) => ({
         backgroundColor: '#00565b',
         '&:hover': {
             backgroundColor: '#00565b',
@@ -167,12 +176,10 @@ function NewLocationForm() {
                     autoComplete="off"
                 >
                     <div>
-                        <TextField
-                            id="name"
-                            label="Location Name"
-                            type="text"
-                            onChange={handleNameChange}
-                            sx={{m: 1, width: '48%'}}/>
+                        <TextField id="name" label="Location Name" type="text"
+                                   value={name}
+                                   onChange={handleNameChange}
+                                   sx={{m: 1, width: '48%'}}/>
                         <FormControl
                             sx={{m: 1, width: '48%'}}>
                             <InputLabel id="vendor-type">Province</InputLabel>
@@ -181,6 +188,7 @@ function NewLocationForm() {
                                 id="province"
                                 label="Province"
                                 onChange={handleProvinceIdChange}
+                                value={provinceId}
                             >
                                 {provinces.map((item) => (
                                     <MenuItem value={item.id}>{item.name}</MenuItem>
@@ -192,6 +200,7 @@ function NewLocationForm() {
                             label="Description"
                             multiline
                             maxRows={10}
+                            value={description}
                             onChange={handleDescriptionChange}
                             sx={{m: 1, width: '97%'}}
                         />
@@ -203,23 +212,18 @@ function NewLocationForm() {
                                 shrink: true,
                             }}
                             onChange={handleMinimumSpendingDaysChange}
-                            defaultValue={1}
+                            value={minimumSpendingDays}
                             InputProps={{inputProps: {min: 1, max: 100}}}
                             sx={{m: 1, width: '31%'}}
                         />
-                        <TextField
-                            id="latitude"
-                            label="Latitude"
-                            type="text"
-                            step="0.01"
-                            onChange={handleLatitudeChange}
-                            sx={{m: 1, width: '32%'}}/>
-                        <TextField
-                            id="longitude"
-                            label="Longitude"
-                            type="text"
-                            onChange={handleLongitudeChange}
-                            sx={{m: 1, width: '32%'}}/>
+                        <TextField id="latitude" label="Latitude" type="text"
+                                   onChange={handleLatitudeChange}
+                                   value={latitude}
+                                   sx={{m: 1, width: '32%'}}/>
+                        <TextField id="longitude" label="Longitude" type="text"
+                                   onChange={handleLongitudeChange}
+                                   value={longitude}
+                                   sx={{m: 1, width: '32%'}}/>
                     </div>
                 </Box>
                 <h3>Things to Do in this Location</h3>
@@ -232,7 +236,8 @@ function NewLocationForm() {
                     <div>
                         <FormGroup>
                             {activities.map((item) => (
-                                <FormControlLabel control={<Checkbox onChange={handleActivitiesChange(item.id)}/>}
+                                <FormControlLabel control={<Checkbox defaultChecked={item.checked}
+                                                                     onChange={handleActivitiesChange(item.id)}/>}
                                                   label={item.activityName}/>
                             ))}
                         </FormGroup>
@@ -246,29 +251,30 @@ function NewLocationForm() {
                     autoComplete="off"
                 >
                     <div>
-                        <Button color="success" variant="outlined" component="label">
-                            Upload Image
-                            <input hidden accept="image/*" multiple type="file" onChange={handleImageChange}/>
-                        </Button>
-                        <ImageList sx={{m: "2%", width: "96%", height: 500}} cols={3} rowHeight={3}>
+                        <div className={props.action === "view" ? "image-upload-hidden" : "image-upload-visible"}>
+                            <Button color="success" variant="outlined" component="label">
+                                Upload Image
+                                <input hidden accept="image/*" multiple type="file" onChange={handleImageChange}/>
+                            </Button>
+                        </div>
+                        <ImageList sx={{m: "2%", width: "96%", height: 400}} cols={3} rowHeight={3}>
                             {locationPictures.map((item) => (
                                 <ImageListItem>
                                     <img
                                         src={item}
-                                        alt="location picture"
                                         loading="lazy"
-                                    />
+                                        alt="location image"/>
                                 </ImageListItem>
                             ))}
                         </ImageList>
                     </div>
                 </Box>
             </div>
-            <CreateButton variant="contained" size="large" onClick={handleSubmit}>
-                Add New Location
-            </CreateButton>
+            <UpdateButton variant="contained" size="large">
+                Update Location
+            </UpdateButton>
         </>
     );
 }
 
-export default NewLocationForm;
+export default ViewForm;

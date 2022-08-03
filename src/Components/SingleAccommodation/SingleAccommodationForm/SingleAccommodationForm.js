@@ -13,39 +13,26 @@ import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {TimePicker} from '@mui/x-date-pickers/TimePicker';
 import Rating from "@mui/material/Rating";
-import Button from "@mui/material/Button";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ACCOMMODATION_1 from "./../../../Assets/Accommodations/accommodation-1.jpg";
 import ACCOMMODATION_2 from "./../../../Assets/Accommodations/accommodation-2.jpg";
 
 function SingleAccommodationForm() {
+
     const [checkInTime, setCheckInTime] = React.useState(new Date('2014-08-18T12:00:00'));
-    const handleCheckInTime = (newValue) => {
-        setCheckInTime(newValue);
-    };
+
     const [checkOutTime, setCheckOutTime] = React.useState(new Date('2014-08-18T10:00:00'));
-    const handleCheckOutTime = (newValue) => {
-        setCheckOutTime(newValue);
-    };
+
     const [itemData, setItemData] = useState(
         [createData(1, ACCOMMODATION_1, "Accommodation 01", "image/jpeg"),
             createData(2, ACCOMMODATION_2, "Accommodation 02", "image/jpeg")]);
 
-    const handleImageChange = event => {
-        let image = event.target.files[0];
-        let url = URL.createObjectURL(image);
-        let name = image.name;
-        let type = image.type;
-        let id = itemData.length + 1;
-        let items = [];
-        {
-            itemData.map((item) => (
-                items.push(item)
-            ))
-        }
-        items.push(createData(id, url, name, type));
-        setItemData(items);
+    const handleCheckInTime = (newValue) => {
+        setCheckInTime(newValue);
+    };
+    const handleCheckOutTime = (newValue) => {
+        setCheckOutTime(newValue);
     };
 
     function createData(id, url, name, type) {
@@ -56,7 +43,7 @@ function SingleAccommodationForm() {
 
     return (
         <>
-            <div className="accommodation-form">
+            <div className="card">
                 <h3>Basic Details</h3>
                 <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly/>
                 <hr/>
@@ -67,11 +54,22 @@ function SingleAccommodationForm() {
                 >
                     <div>
                         <TextField id="name" label="Accommodation Name" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
                                    defaultValue="Granbell Hotel Colombo"
                                    sx={{m: 1, width: '32%'}}/>
-                        <TextField id="telephone" label="Telephone" type="text" defaultValue="+94 112 397 397"
+                        <TextField id="telephone" label="Telephone" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="+94 112 397 397"
                                    sx={{m: 1, width: '31%'}}/>
-                        <TextField id="email" label="Email" type="text" defaultValue="reservations1@granbellhotel.lk"
+                        <TextField id="email" label="Email" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="reservations1@granbellhotel.lk"
                                    sx={{m: 1, width: '32%'}}/>
                         {/*email_verified*/}
                         <TextField
@@ -79,6 +77,9 @@ function SingleAccommodationForm() {
                             label="Description"
                             multiline
                             maxRows={10}
+                            InputProps={{
+                                readOnly: true,
+                            }}
                             defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                             sx={{m: 1, width: '97%'}}
                         />
@@ -110,22 +111,53 @@ function SingleAccommodationForm() {
                     autoComplete="off"
                 >
                     <div>
-                        <TextField id="location" label="Nearby Location" type="text" defaultValue="Colombo"
+                        <TextField id="location" label="Nearby Location" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="Colombo"
                                    sx={{m: 1, width: '29%'}}/>
                         <TextField id="addressLine1" label="Address Line 01" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
                                    defaultValue="282/5 Kollupitiya Road"
                                    sx={{m: 1, width: '33%'}}/>
-                        <TextField id="addressLine2" label="Address Line 02" type="text" defaultValue="Marine Drive"
+                        <TextField id="addressLine2" label="Address Line 02" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="Marine Drive"
                                    sx={{m: 1, width: '33%'}}/>
-                        <TextField id="city" label="City" type="text" defaultValue="Colombo 03"
+                        <TextField id="city" label="City" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="Colombo 03"
                                    sx={{m: 1, width: '18%'}}/>
-                        <TextField id="province" label="Province" type="text" defaultValue="Western"
+                        <TextField id="province" label="Province" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="Western"
                                    sx={{m: 1, width: '19%'}}/>
-                        <TextField id="postalCode" label="Postal Code" type="text" defaultValue="00300"
+                        <TextField id="postalCode" label="Postal Code" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="00300"
                                    sx={{m: 1, width: '19%'}}/>
-                        <TextField id="latitude" label="Latitude" type="text" defaultValue="6.9128"
+                        <TextField id="latitude" label="Latitude" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="6.9128"
                                    sx={{m: 1, width: '19%'}}/>
-                        <TextField id="longitude" label="Longitude" type="text" defaultValue="79.8507"
+                        <TextField id="longitude" label="Longitude" type="text"
+                                   InputProps={{
+                                       readOnly: true,
+                                   }}
+                                   defaultValue="79.8507"
                                    sx={{m: 1, width: '18%'}}/>
                     </div>
                 </Box>
@@ -155,11 +187,13 @@ function SingleAccommodationForm() {
                             />
                         </LocalizationProvider>
                         <FormGroup>
-                            <FormControlLabel control={<Checkbox/>} label="Parking Available"
+                            <FormControlLabel control={<Checkbox checked={true} disabled/>} label="Parking Available"
                                               sx={{m: 0, width: '48%'}}/>
-                            <FormControlLabel control={<Checkbox/>} label="Smoking Rooms Available"
+                            <FormControlLabel control={<Checkbox checked={true} disabled/>}
+                                              label="Smoking Rooms Available"
                                               sx={{m: 0, width: '48%'}}/>
-                            <FormControlLabel control={<Checkbox/>} label="Pets Allowed" sx={{m: 0, width: '48%'}}/>
+                            <FormControlLabel control={<Checkbox disabled/>} label="Pets Allowed"
+                                              sx={{m: 0, width: '48%'}}/>
                         </FormGroup>
                         {/*+rating*/}
                         {/*+rating_count*/}
@@ -173,10 +207,6 @@ function SingleAccommodationForm() {
                     autoComplete="off"
                 >
                     <div>
-                        <Button color="success" variant="outlined" component="label">
-                            Upload Image
-                            <input hidden accept="image/*" multiple type="file" onChange={handleImageChange}/>
-                        </Button>
                         <ImageList sx={{m: "2%", width: "96%", height: 500}} cols={3} rowHeight={3}>
                             {itemData.map((item) => (
                                 <ImageListItem key={item.id}>

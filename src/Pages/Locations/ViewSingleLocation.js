@@ -1,6 +1,6 @@
 import React from "react";
-import "./SingleLocation.css";
-import SingleLocationForm from "../../Components/Locations/SingleLocationForm/SingleLocationForm";
+import "./Locations.css";
+import ViewForm from "../../Components/Locations/LocationForm/ViewForm";
 import AllLocationAttractions
     from "../../Components/LocationAttractions/LocationAttractionsTable/AllLocationAttractions";
 import {useParams} from "react-router";
@@ -14,7 +14,7 @@ function ViewSingleLocation() {
                 <p className="sub-title">Locations / View Location</p>
             </div>
             <div className="main-section">
-                    <SingleLocationForm action="view" id={id}/>
+                    <ViewForm id={id}/>
                     <AllLocationAttractions/>
             </div>
         </>

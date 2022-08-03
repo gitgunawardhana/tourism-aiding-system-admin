@@ -1,6 +1,6 @@
 import React from "react";
-import "./NewLocation.css";
-import NewLocationForm from "../../Components/Locations/NewLocationForm/NewLocationForm";
+import "./Locations.css";
+import NewForm from "../../Components/Locations/LocationForm/NewForm";
 
 function NewLocation() {
 
@@ -11,7 +11,7 @@ function NewLocation() {
                 <p className="sub-title">Locations / Create Location</p>
             </div>
             <div className="main-section">
-                <NewLocationForm/>
+                <NewForm/>
             </div>
         </>
     );
