@@ -20,7 +20,7 @@
     display: inline-grid;
     width: 100%;
     font-size: 15px;
-    font-weight: lighter;
+    font-weight: bold;
     list-style: none;
     cursor: pointer;
 }
@@ -43,6 +43,20 @@
     border: 2px solid #00565B;
     border-radius: 15px;
     color: white;
+}
+
+.nav-bar-sub-item-list {
+    margin-left: 10%;
+}
+
+.nav-bar-sub-item {
+    position: relative;
+    display: inline-grid;
+    width: 100%;
+    font-size: 15px;
+    font-weight: lighter;
+    list-style: none;
+    cursor: pointer;
 }
 
 .nav-bar-icon {
@@ -69,4 +83,46 @@
     background-color: #00565B;
     z-index: 999;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.navigation-item-list {
+    margin-left: 10%;
+    width: 90%;
+}
+
+.navigation-item {
+    width: 100%;
+    font-size: 15px;
+    font-weight: normal;
+    list-style: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.navigation-item-link {
+    display: grid;
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+}
+
+.navigation-item a:hover {
+    color: white;
+}
+
+.navigation-sub-item-dropdown img {
+    width: 16px;
+}
+
+.navigation-sub-item-dropdown-hidden {
+    display: none;
+}
+
+.navigation-sub-item-dropdown {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    align-content: center;
 }
