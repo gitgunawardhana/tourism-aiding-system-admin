@@ -1,8 +1,8 @@
 import React from "react";
-import SingleVendorForm from "../../Components/SingleVendor/SingleVendorForm/SingleVendorForm";
+import SingleVendorForm from "../../Components/Vendors/SingleVendor/SingleVendorForm/SingleVendorForm";
 import "./SingleVendor.css"
-import AccommodationDetails from "../../Components/SingleVendor/AccommodationDetails/AccommodationDetails";
-import VehicleRentalDetails from "../../Components/SingleVendor/VehicleRentalDetails/VehicleRentalDetails";
+import AccommodationDetails from "../../Components/Vendors/SingleVendor/AccommodationDetails/AccommodationDetails";
+import VehicleRentalDetails from "../../Components/Vendors/SingleVendor/VehicleRentalDetails/VehicleRentalDetails";
 
 function SingleVendor() {
 
