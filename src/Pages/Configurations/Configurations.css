@@ -1,0 +1,16 @@
+.search-field {
+    width: 100%;
+}
+
+.create-button {
+    background-color: #00565b;
+    width: 100%;
+}
+
+.more-action-edit {
+    color: green;
+}
+
+.more-action-delete {
+    color: red;
+}
