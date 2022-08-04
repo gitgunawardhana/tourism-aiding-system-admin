@@ -16,6 +16,7 @@ import NewLocationAttraction from "./Pages/LocationAttraction/NewLocationAttract
 import ViewLocationAttraction from "./Pages/LocationAttraction/ViewLocationAttraction";
 import EditLocationAttraction from "./Pages/LocationAttraction/EditLocationAttraction";
 import ScrollToTop from "./Components/ScrollToTop";
+import VehicleTypes from "./Pages/Configurations/VehicleTypes/VehicleTypes";
 
 function App() {
     return (
@@ -25,7 +26,6 @@ function App() {
                 <ScrollToTop/>
                 <Routes>
                     <Route path='/' exact element={<Home/>}/>
-                    <Route path='/configurations' element={<Configurations/>}/>
                     <Route path='/users' element={<Users/>}/>
                     <Route path='/vendors' element={<Vendors/>}/>
                     <Route path='/vendor' element={<SingleVendor/>}/>
@@ -38,6 +38,8 @@ function App() {
                     <Route path='/location/attraction/new' element={<NewLocationAttraction/>}/>
                     <Route path='/location/attraction/view' element={<ViewLocationAttraction/>}/>
                     <Route path='/location/attraction/edit' element={<EditLocationAttraction/>}/>
+                    <Route path='/configurations' element={<Configurations/>}/>
+                    <Route path='/configurations/vehicle-types' element={<VehicleTypes/>}/>
                 </Routes>
             </Router>
         </>
