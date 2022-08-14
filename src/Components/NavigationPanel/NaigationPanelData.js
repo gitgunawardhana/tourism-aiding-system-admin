@@ -35,13 +35,13 @@ export const NavigationPanelData = [
         path: '/configurations',
         icon: <img src={Configurations} alt="Configuration Icon" className="nav-bar-icon"/>,
         subItems: [
-            {title: 'Driver Fare', path: ''},
+            {title: 'Driver Fare', path: '/configurations/driver-fare'},
             {title: 'Vehicle Types', path: '/configurations/vehicle-types'},
             {title: 'Accommodation Types', path: '/configurations/accommodation-types'},
             {title: 'Room Facilities', path: '/configurations/room-facilities'},
             {title: 'Bathroom Facilities', path: '/configurations/bathroom-facilities'},
-            {title: 'Provinces', path: ''},
-            {title: 'Location activities', path: ''},
+            {title: 'Provinces', path: '/configurations/provinces'},
+            {title: 'Location activities', path: '/configurations/location-activities'},
         ]
     },
 ]

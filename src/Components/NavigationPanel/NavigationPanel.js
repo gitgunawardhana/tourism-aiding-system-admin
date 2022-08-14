@@ -3,12 +3,53 @@ import {Link} from "react-router-dom";
 import {NavigationPanelData} from "./NaigationPanelData";
 import './NavigationPanel.css';
 import Grid from "@mui/material/Grid";
-import DropDownIcon from "../../Assets/NavigationPanel/down-arrow.png";
+import {styled} from '@mui/material/styles';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function NavigationPanel() {
 
     const configurations = ["Driver Fare", "Vehicle Types", "Accommodation Types",
         "Room Facilities", "Bathroom Facilities", "Provinces", "Location activities"];
+
+    const Accordion = styled((props) => (
+        <MuiAccordion disableGutters elevation={0} square {...props} />
+    ))(({theme}) => ({
+        border: `none`,
+        '&:not(:last-child)': {
+            borderBottom: 0,
+        },
+        '&:before': {
+            display: 'none',
+        },
+    }));
+
+    const AccordionSummary = styled((props) => (
+        <MuiAccordionSummary
+            {...props}
+        />
+    ))(({theme}) => ({
+        backgroundColor: '#00565B',
+        color: 'white',
+        '& .MuiAccordionSummary-expandIconWrapper': {
+            color: 'white'
+        },
+        '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+            transform: 'rotate(180deg)',
+        },
+        '& .MuiAccordionSummary-content': {
+            // marginLeft: theme.spacing(1),
+        },
+    }));
+
+    const AccordionDetails = styled(MuiAccordionDetails)(({theme}) => ({
+        padding: '0 20px',
+        borderTop: '1px solid rgba(0, 0, 0, 0)',
+        backgroundColor: '#00565B',
+        color: 'white',
+    }));
     return (
         <>
             <div className="upper-nav-bar">
@@ -20,100 +61,42 @@ function NavigationPanel() {
                 <div className="navigation-item-list">
 
                     {NavigationPanelData.map((item) => (
-                        <>
-                            <Grid container spacing={0} className="navigation-item">
-                                <Grid item xs={2}>
-                                    {item.icon}
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Link to={item.path} className="navigation-item-link">
-                                        <span>{item.title}</span>
-                                    </Link>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <div
-                                        className={item.subItems.length !== 0 ? "navigation-sub-item-dropdown" : "navigation-sub-item-dropdown-hidden"}>
-                                        <img src={DropDownIcon} alt="Dropdown"/>
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            {item.subItems.map((subItem) => (
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={item.subItems.length === 0 ? null : <ExpandMoreIcon/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
                                 <Grid container spacing={0} className="navigation-item">
-                                    <Grid item xs={2}/>
+                                    <Grid item xs={2}>
+                                        {item.icon}
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                    </Grid>
                                     <Grid item xs={9}>
-                                        <Link to={subItem.path} className="navigation-item-link">
-                                            <span>{subItem.title}</span>
+                                        <Link to={item.path} className="navigation-item-link">
+                                            <span>{item.title}</span>
                                         </Link>
                                     </Grid>
+
                                 </Grid>
-                            ))}
-                        </>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                {item.subItems.map((subItem) => (
+                                    <Grid container spacing={0} className="navigation-item navigation-sub-item">
+                                        <Grid item xs={2}/>
+                                        <Grid item xs={9}>
+                                            <Link to={subItem.path} className="navigation-item-link">
+                                                <span>{subItem.title}</span>
+                                            </Link>
+                                        </Grid>
+                                    </Grid>
+                                ))}
+                            </AccordionDetails>
+                        </Accordion>
                     ))}
 
-                    {/*Configuration Sub List*/}
-                    {/*{configurations.map((item) => (*/}
-                    {/*    <Grid container spacing={0} className="navigation-item">*/}
-                    {/*        <Grid item xs={2}/>*/}
-                    {/*        <Grid item xs={9}>*/}
-                    {/*            <Link to="/configurations" className="navigation-item-link">*/}
-                    {/*                <span>{item}</span>*/}
-                    {/*            </Link>*/}
-                    {/*        </Grid>*/}
-                    {/*    </Grid>*/}
-                    {/*))}*/}
                 </div>
-
-                {/*<div className="nav-bar-item">*/}
-                {/*    <Link to="/configurations">*/}
-                {/*        <span>Configurations</span>*/}
-                {/*    </Link>*/}
-                {/*    <div className="nav-bar-sub-item-list">*/}
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Driver fare</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Vehicle Types</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Accommodation Types</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Room Facilities</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Bathroom Facilities</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Accommodation Types</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Provinces</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-                {/*        <div className="nav-bar-sub-item">*/}
-                {/*            <Link to="/configurations">*/}
-                {/*                <span>Location Activities</span>*/}
-                {/*            </Link>*/}
-                {/*        </div>*/}
-
-                {/*    </div>*/}
-                {/*</div>*/}
-
             </div>
         </>
     )

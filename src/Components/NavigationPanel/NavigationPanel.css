@@ -96,6 +96,9 @@
     font-weight: normal;
     list-style: none;
     cursor: pointer;
+}
+
+.navigation-sub-item{
     margin-top: 20px;
 }
 
