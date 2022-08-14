@@ -117,17 +117,35 @@ function VehicleTypes() {
     // }, []);
 
     const handleVisibility = (id) => (event) => {
-        // const baseURL = "http://localhost:8080/admin/location/" + id;
-        // axios
-        //     .patch(baseURL)
-        //     .then((response) => {
-        //         alert(response.data.message);
-        //         axios.get("http://localhost:8080/admin/location")
-        //             .then(res => {
-        //                 const locations = res.data.body;
-        //                 setRows(locations);
-        //             })
-        //     });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to change the visibility of the vehicle type?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: 'black',
+            confirmButtonText: 'Yes, change it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //backend call
+                // const baseURL = "http://localhost:8080/admin/location/" + id;
+                // axios
+                //     .patch(baseURL)
+                //     .then((response) => {
+                //         alert(response.data.message);
+                //         axios.get("http://localhost:8080/admin/location")
+                //             .then(res => {
+                //                 const locations = res.data.body;
+                //                 setRows(locations);
+                //             })
+                //     });
+                Swal.fire(
+                    'Status Changed!',
+                    'Status changed successfully.',
+                    'success'
+                )
+            }
+        })
     };
 
     const createVehicleType = () => {
