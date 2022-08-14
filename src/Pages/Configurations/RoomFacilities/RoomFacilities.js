@@ -14,10 +14,9 @@ import * as FaIcons from "react-icons/fa";
 import Switch from "@mui/material/Switch";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
-import VehicleTypeForm from "../../../Components/Configurations/VehicleTypes/VehicleTypeForm";
 import Swal from 'sweetalert2';
-
-// const Swal = require('sweetalert2');
+import Image from '../../../Assets/Accommodations/accommodation-1.jpg';
+import RoomFacilityForm from "../../../Components/Configurations/RoomFacilities/RoomFacilityForm";
 
 //Table columns
 const columns = [
@@ -28,14 +27,14 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'typeName',
-        label: 'Type Name',
+        id: 'facilityName',
+        label: 'Room Facility Name',
         minWidth: 100,
         align: 'center'
     },
     {
-        id: 'pricePerKilometer',
-        label: 'Price Per Kilometer',
+        id: 'image',
+        label: 'Image',
         minWidth: 100,
         align: 'center'
     },
@@ -54,18 +53,18 @@ const columns = [
 ];
 
 //Create data for table row
-function createData(id, typeName, pricePerKilometer, visibilityStatus) {
+function createData(id, facilityName, image, visibilityStatus) {
     return {
-        id, typeName, pricePerKilometer, visibilityStatus
+        id, facilityName, image, visibilityStatus
     }
 }
 
-function VehicleTypes() {
+function RoomFacilities() {
 
     //Value variables
     const [id, setId] = useState(0);
-    const [typeName, setTypeName] = useState("");
-    const [pricePerKilometer, setPricePerKilometer] = useState(0);
+    const [facilityName, setFacilityName] = useState("");
+    const [image, setImage] = useState("");
     const [action, setAction] = useState("save");
 
     //Pop up form
@@ -104,8 +103,8 @@ function VehicleTypes() {
     };
 
     const rows = [
-        createData(45, "Small", 250.00, "VISIBLE"),
-        createData(46, "Medium", 500.00, "VISIBLE"),
+        createData(45, "Air conditioning", {Image}, "VISIBLE"),
+        createData(46, "Soundproofing", {Image}, "VISIBLE"),
     ];
     // const [rows, setRows] = useState([]);
     // useEffect(() => {
@@ -117,36 +116,54 @@ function VehicleTypes() {
     // }, []);
 
     const handleVisibility = (id) => (event) => {
-        // const baseURL = "http://localhost:8080/admin/location/" + id;
-        // axios
-        //     .patch(baseURL)
-        //     .then((response) => {
-        //         alert(response.data.message);
-        //         axios.get("http://localhost:8080/admin/location")
-        //             .then(res => {
-        //                 const locations = res.data.body;
-        //                 setRows(locations);
-        //             })
-        //     });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to change the visibility of the room facility?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: 'black',
+            confirmButtonText: 'Yes, change it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //backend call
+                // const baseURL = "http://localhost:8080/admin/location/" + id;
+                // axios
+                //     .patch(baseURL)
+                //     .then((response) => {
+                //         alert(response.data.message);
+                //         axios.get("http://localhost:8080/admin/location")
+                //             .then(res => {
+                //                 const locations = res.data.body;
+                //                 setRows(locations);
+                //             })
+                //     });
+                Swal.fire(
+                    'Status Changed!',
+                    'Status changed successfully.',
+                    'success'
+                )
+            }
+        })
     };
 
-    const createVehicleType = () => {
+    const createRoomFacility = () => {
         setId(0);
-        setTypeName("");
-        setPricePerKilometer("");
+        setFacilityName("");
+        setImage("");
         setAction("save");
         toggleFormPopup();
     };
 
-    const editVehicleType = (id, typeName, pricePerKilometer) => (action) => {
+    const editRoomFacility = (id, facilityName, image) => (action) => {
         setId(id);
-        setTypeName(typeName);
-        setPricePerKilometer(pricePerKilometer);
+        setFacilityName(facilityName);
+        setImage(image);
         setAction("update");
         toggleFormPopup();
     };
 
-    const deleteVehicleType = (id) => (action) => {
+    const deleteRoomFacility = (id) => (action) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -160,7 +177,7 @@ function VehicleTypes() {
                 //backend call
                 Swal.fire(
                     'Deleted!',
-                    'Vehicle type has been deleted.',
+                    'Room facility has been deleted.',
                     'success'
                 )
             }
@@ -170,8 +187,8 @@ function VehicleTypes() {
     return (
         <>
             <div className="lower-nav-bar">
-                <p className="title">Vehicle Types</p>
-                <p className="sub-title">Configurations / Vehicle Types</p>
+                <p className="title">Room Facilities</p>
+                <p className="sub-title">Configurations / Room Facilities</p>
             </div>
             <div className='main-section'>
                 <div className="card">
@@ -179,14 +196,14 @@ function VehicleTypes() {
                         <Grid item xs={9}>
                             <TextField
                                 className="search-field"
-                                id="vehicle-type-search"
-                                label="Search Vehicle Types"
+                                id="room-facility-search"
+                                label="Search Room Facilities"
                                 variant="outlined"
                             />
                         </Grid>
                         <Grid item xs={3}>
                             <StyledButton className="create-button" variant="contained"
-                                          onClick={createVehicleType}>Create New Vehicle Type</StyledButton>
+                                          onClick={createRoomFacility()}>Create New Room Facility</StyledButton>
                         </Grid>
                     </Grid>
                 </div>
@@ -223,11 +240,11 @@ function VehicleTypes() {
                                                             return (
                                                                 <TableCell key={column.id} align={column.align}>
                                                                     <div className="more-action more-action-edit"
-                                                                         onClick={editVehicleType(row.id, row.typeName, row.pricePerKilometer)}>
+                                                                         onClick={editRoomFacility(row.id, row.facilityName, row.image)}>
                                                                         <FaIcons.FaPencilRuler/>
                                                                     </div>
                                                                     <div className="more-action more-action-delete"
-                                                                         onClick={deleteVehicleType(row.id)}>
+                                                                         onClick={deleteRoomFacility(row.id)}>
                                                                         <FaIcons.FaRecycle/>
                                                                     </div>
                                                                 </TableCell>
@@ -240,6 +257,13 @@ function VehicleTypes() {
                                                                         onChange={handleVisibility(row.id)}
                                                                         inputProps={{'aria-label': 'controlled'}}
                                                                     />
+                                                                </TableCell>
+                                                            );
+                                                        } else if (column.label === "Image") {
+                                                            return (
+                                                                <TableCell key={column.id} align={column.align}>
+                                                                    <img width="150px" src={Image}
+                                                                         alt="Room Facility Image"/>
                                                                 </TableCell>
                                                             );
                                                         } else {
@@ -267,8 +291,8 @@ function VehicleTypes() {
                         />
                     </Paper>
                 </div>
-                {isFormOpen && <VehicleTypeForm
-                    id={id} typeName={typeName} pricePerKilometer={pricePerKilometer}
+                {isFormOpen && <RoomFacilityForm
+                    id={id} facilityName={facilityName} image={image}
                     action={action}
                     handleClose={toggleFormPopup}
                 />}
@@ -277,4 +301,4 @@ function VehicleTypes() {
     );
 }
 
-export default VehicleTypes;
+export default RoomFacilities;

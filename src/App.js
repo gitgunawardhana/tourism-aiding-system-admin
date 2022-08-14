@@ -17,6 +17,9 @@ import ViewLocationAttraction from "./Pages/LocationAttraction/ViewLocationAttra
 import EditLocationAttraction from "./Pages/LocationAttraction/EditLocationAttraction";
 import ScrollToTop from "./Components/ScrollToTop";
 import VehicleTypes from "./Pages/Configurations/VehicleTypes/VehicleTypes";
+import AccommodationTypes from "./Pages/Configurations/AccommodationTypes/AccommodationTypes";
+import RoomFacilities from "./Pages/Configurations/RoomFacilities/RoomFacilities";
+import BathroomFacilities from "./Pages/Configurations/BathroomFacilities/BathroomFacilities";
 
 function App() {
     return (
@@ -40,6 +43,9 @@ function App() {
                     <Route path='/location/attraction/edit' element={<EditLocationAttraction/>}/>
                     <Route path='/configurations' element={<Configurations/>}/>
                     <Route path='/configurations/vehicle-types' element={<VehicleTypes/>}/>
+                    <Route path='/configurations/accommodation-types' element={<AccommodationTypes/>}/>
+                    <Route path='/configurations/room-facilities' element={<RoomFacilities/>}/>
+                    <Route path='/configurations/bathroom-facilities' element={<BathroomFacilities/>}/>
                 </Routes>
             </Router>
         </>
