@@ -14,10 +14,8 @@ import * as FaIcons from "react-icons/fa";
 import Switch from "@mui/material/Switch";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
-import VehicleTypeForm from "../../../Components/Configurations/VehicleTypes/VehicleTypeForm";
 import Swal from 'sweetalert2';
-
-// const Swal = require('sweetalert2');
+import ProvinceForm from "../../../Components/Configurations/Provinces/ProvinceForm";
 
 //Table columns
 const columns = [
@@ -28,14 +26,8 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'typeName',
-        label: 'Type Name',
-        minWidth: 100,
-        align: 'center'
-    },
-    {
-        id: 'pricePerKilometer',
-        label: 'Price Per Kilometer',
+        id: 'provinceName',
+        label: 'Province Name',
         minWidth: 100,
         align: 'center'
     },
@@ -54,18 +46,17 @@ const columns = [
 ];
 
 //Create data for table row
-function createData(id, typeName, pricePerKilometer, visibilityStatus) {
+function createData(id, provinceName, visibilityStatus) {
     return {
-        id, typeName, pricePerKilometer, visibilityStatus
+        id, provinceName, visibilityStatus
     }
 }
 
-function VehicleTypes() {
+function Provinces() {
 
     //Value variables
     const [id, setId] = useState(0);
-    const [typeName, setTypeName] = useState("");
-    const [pricePerKilometer, setPricePerKilometer] = useState(0);
+    const [provinceName, setProvinceName] = useState("");
     const [action, setAction] = useState("save");
 
     //Pop up form
@@ -104,8 +95,8 @@ function VehicleTypes() {
     };
 
     const rows = [
-        createData(45, "Small", 250.00, "VISIBLE"),
-        createData(46, "Medium", 500.00, "VISIBLE"),
+        createData(45, "Southern", "VISIBLE"),
+        createData(46, "Western", "VISIBLE"),
     ];
     // const [rows, setRows] = useState([]);
     // useEffect(() => {
@@ -130,23 +121,21 @@ function VehicleTypes() {
         //     });
     };
 
-    const createVehicleType = () => {
+    const createProvince = () => {
         setId(0);
-        setTypeName("");
-        setPricePerKilometer("");
+        setProvinceName("");
         setAction("save");
         toggleFormPopup();
     };
 
-    const editVehicleType = (id, typeName, pricePerKilometer) => (action) => {
+    const editProvince = (id, provinceName) => (action) => {
         setId(id);
-        setTypeName(typeName);
-        setPricePerKilometer(pricePerKilometer);
+        setProvinceName(provinceName);
         setAction("update");
         toggleFormPopup();
     };
 
-    const deleteVehicleType = (id) => (action) => {
+    const deleteProvince = (id) => (action) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -160,7 +149,7 @@ function VehicleTypes() {
                 //backend call
                 Swal.fire(
                     'Deleted!',
-                    'Vehicle type has been deleted.',
+                    'Province has been deleted.',
                     'success'
                 )
             }
@@ -170,8 +159,8 @@ function VehicleTypes() {
     return (
         <>
             <div className="lower-nav-bar">
-                <p className="title">Vehicle Types</p>
-                <p className="sub-title">Configurations / Vehicle Types</p>
+                <p className="title">Provinces</p>
+                <p className="sub-title">Configurations / Provinces</p>
             </div>
             <div className='main-section'>
                 <div className="card">
@@ -179,14 +168,14 @@ function VehicleTypes() {
                         <Grid item xs={9}>
                             <TextField
                                 className="search-field"
-                                id="vehicle-type-search"
-                                label="Search Vehicle Types"
+                                id="province-search"
+                                label="Search Provinces"
                                 variant="outlined"
                             />
                         </Grid>
                         <Grid item xs={3}>
                             <StyledButton className="create-button" variant="contained"
-                                          onClick={createVehicleType}>Create New Vehicle Type</StyledButton>
+                                          onClick={createProvince}>Create New Province</StyledButton>
                         </Grid>
                     </Grid>
                 </div>
@@ -223,11 +212,11 @@ function VehicleTypes() {
                                                             return (
                                                                 <TableCell key={column.id} align={column.align}>
                                                                     <div className="more-action more-action-edit"
-                                                                         onClick={editVehicleType(row.id, row.typeName, row.pricePerKilometer)}>
+                                                                         onClick={editProvince(row.id, row.provinceName)}>
                                                                         <FaIcons.FaPencilRuler/>
                                                                     </div>
                                                                     <div className="more-action more-action-delete"
-                                                                         onClick={deleteVehicleType(row.id)}>
+                                                                         onClick={deleteProvince(row.id)}>
                                                                         <FaIcons.FaTrashAlt/>
                                                                     </div>
                                                                 </TableCell>
@@ -267,8 +256,8 @@ function VehicleTypes() {
                         />
                     </Paper>
                 </div>
-                {isFormOpen && <VehicleTypeForm
-                    id={id} typeName={typeName} pricePerKilometer={pricePerKilometer}
+                {isFormOpen && <ProvinceForm
+                    id={id} provinceName={provinceName}
                     action={action}
                     handleClose={toggleFormPopup}
                 />}
@@ -277,4 +266,4 @@ function VehicleTypes() {
     );
 }
 
-export default VehicleTypes;
+export default Provinces;

@@ -245,7 +245,7 @@ function AccommodationTypes() {
                                                                     </div>
                                                                     <div className="more-action more-action-delete"
                                                                          onClick={deleteAccommodationType(row.id)}>
-                                                                        <FaIcons.FaRecycle/>
+                                                                        <FaIcons.FaTrashAlt/>
                                                                     </div>
                                                                 </TableCell>
                                                             );

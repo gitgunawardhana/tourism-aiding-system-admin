@@ -20,6 +20,10 @@ import VehicleTypes from "./Pages/Configurations/VehicleTypes/VehicleTypes";
 import AccommodationTypes from "./Pages/Configurations/AccommodationTypes/AccommodationTypes";
 import RoomFacilities from "./Pages/Configurations/RoomFacilities/RoomFacilities";
 import BathroomFacilities from "./Pages/Configurations/BathroomFacilities/BathroomFacilities";
+import Provinces from "./Pages/Configurations/Provinces/Provinces";
+import LocationActivities from "./Pages/Configurations/LocationActivities/LocationActivities";
+import DriverFare from "./Pages/Configurations/DriverFare/DriverFare";
+import EditDriverFare from "./Pages/Configurations/DriverFare/EditDriverFare";
 
 function App() {
     return (
@@ -46,6 +50,10 @@ function App() {
                     <Route path='/configurations/accommodation-types' element={<AccommodationTypes/>}/>
                     <Route path='/configurations/room-facilities' element={<RoomFacilities/>}/>
                     <Route path='/configurations/bathroom-facilities' element={<BathroomFacilities/>}/>
+                    <Route path='/configurations/provinces' element={<Provinces/>}/>
+                    <Route path='/configurations/location-activities' element={<LocationActivities/>}/>
+                    <Route path='/configurations/driver-fare' element={<DriverFare/>}/>
+                    <Route path='/configurations/driver-fare/edit' element={<EditDriverFare/>}/>
                 </Routes>
             </Router>
         </>

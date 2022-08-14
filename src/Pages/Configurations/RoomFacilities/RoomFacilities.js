@@ -203,7 +203,7 @@ function RoomFacilities() {
                         </Grid>
                         <Grid item xs={3}>
                             <StyledButton className="create-button" variant="contained"
-                                          onClick={createRoomFacility()}>Create New Room Facility</StyledButton>
+                                          onClick={createRoomFacility}>Create New Room Facility</StyledButton>
                         </Grid>
                     </Grid>
                 </div>
@@ -245,7 +245,7 @@ function RoomFacilities() {
                                                                     </div>
                                                                     <div className="more-action more-action-delete"
                                                                          onClick={deleteRoomFacility(row.id)}>
-                                                                        <FaIcons.FaRecycle/>
+                                                                        <FaIcons.FaTrashAlt/>
                                                                     </div>
                                                                 </TableCell>
                                                             );

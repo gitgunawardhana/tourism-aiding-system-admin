@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageList from "@mui/material/ImageList";
 
-function BathroomFacilityForm(props) {
+function LocationActivityForm(props) {
 
     const CreateButton = styled(Button)(({theme}) => ({
         backgroundColor: '#00565b',
@@ -21,12 +21,12 @@ function BathroomFacilityForm(props) {
     }));
 
     const [id, setId] = useState(props.id);
-    const [facilityName, setFacilityName] = useState(props.facilityName);
+    const [activityName, setActivityName] = useState(props.activityName);
     const [image, setImage] = useState(props.image);
     const [imageBase64, setImageBase64] = useState(props.pricePerKilometer);
 
-    const handleFacilityNameChange = event => {
-        setFacilityName(event.target.value);
+    const handleActivityNameChange = event => {
+        setActivityName(event.target.value);
     }
 
     const handleImageChange = event => {
@@ -55,7 +55,7 @@ function BathroomFacilityForm(props) {
                 </button>
                 <div className="card">
                     <div className="configuration-form-title">
-                        {props.action === "update" ? "Modify Bathroom Facility" : "Create New Bathroom Facility"}
+                        {props.action === "update" ? "Modify Location Activity" : "Create New Location Activity"}
                     </div>
                 </div>
 
@@ -69,11 +69,11 @@ function BathroomFacilityForm(props) {
                         autoComplete="off"
                     >
                         <div>
-                            <TextField id="facilityName" label="Bathroom Facility Name" type="text"
-                                       value={facilityName}
-                                       onChange={handleFacilityNameChange}/>
+                            <TextField id="activityName" label="Location Activity Name" type="text"
+                                       value={activityName}
+                                       onChange={handleActivityNameChange}/>
                             <br/><br/>
-                            <h5>Bathroom Facility Image</h5>
+                            <h5>Location Activity Image</h5>
                             <Button color="success" variant="outlined" component="label">
                                 {props.action === "update" ? "Change Image" : "Upload Image"}
                                 <input hidden accept="image/*" multiple type="file" onChange={handleImageChange}/>
@@ -82,7 +82,7 @@ function BathroomFacilityForm(props) {
                                 <ImageListItem>
                                     <img
                                         src={image}
-                                        // alt="Bathroom Facility Image"
+                                        // alt="Location Activity Image"
                                         loading="lazy"
                                         width="100%"
                                     />
@@ -90,7 +90,7 @@ function BathroomFacilityForm(props) {
                             </ImageList>
 
                         </div>
-                        <CreateButton>{props.action === "update" ? "Update Bathroom Facility" : "Save New Bathroom Facility"}</CreateButton>
+                        <CreateButton>{props.action === "update" ? "Update Location Activity" : "Save New Location Activity"}</CreateButton>
                     </Box>
                 </div>
             </div>
@@ -98,4 +98,4 @@ function BathroomFacilityForm(props) {
     )
 }
 
-export default BathroomFacilityForm;
+export default LocationActivityForm;

@@ -73,7 +73,7 @@ function RoomFacilityForm(props) {
                                        value={facilityName}
                                        onChange={handleFacilityNameChange}/>
                             <br/><br/>
-                            <h5>Accommodation Type Image</h5>
+                            <h5>Room Facility Image</h5>
                             <Button color="success" variant="outlined" component="label">
                                 {props.action === "update" ? "Change Image" : "Upload Image"}
                                 <input hidden accept="image/*" multiple type="file" onChange={handleImageChange}/>
