@@ -24,6 +24,7 @@ import Provinces from "./Pages/Configurations/Provinces/Provinces";
 import LocationActivities from "./Pages/Configurations/LocationActivities/LocationActivities";
 import DriverFare from "./Pages/Configurations/DriverFare/DriverFare";
 import EditDriverFare from "./Pages/Configurations/DriverFare/EditDriverFare";
+import SingleUser from "./Pages/Users/SingleUser";
 
 function App() {
     return (
@@ -34,9 +35,9 @@ function App() {
                 <Routes>
                     <Route path='/' exact element={<Home/>}/>
                     <Route path='/users' element={<Users/>}/>
+                    <Route path='/user' element={<SingleUser/>}/>
                     <Route path='/vendors' element={<Vendors/>}/>
-                    <Route path='/vendor' element={<SingleVendor/>}/>
-                    <Route path='/vendor' element={<SingleVendor/>}/>
+                    <Route path='/vendor/;id' element={<SingleVendor/>}/>
                     <Route path='/accommodation' element={<SingleAccommodation/>}/>
                     <Route path='/locations' element={<Locations/>}/>
                     <Route path='/location/new' element={<NewLocation/>}/>
