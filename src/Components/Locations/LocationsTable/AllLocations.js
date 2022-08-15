@@ -16,6 +16,7 @@ import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Switch from '@mui/material/Switch';
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const columns = [
     {
@@ -134,18 +135,6 @@ function AllLocations() {
 
     const [rows, setRows] = useState([]);
     useEffect(() => {
-
-        // try {
-        //     const res = apiClient.get("/admin/location");
-        //     const result = {
-        //         status: res.status + "-" + res.statusText,
-        //         headers: res.headers,
-        //         data: res.data,
-        //     };
-        //     setRows(res.data.body);
-        // } catch (err) {
-        //     setRows(formatResponse(err.response?.data || err));
-        // }
         axios.get("http://localhost:8080/admin/location")
             .then(res => {
                 const locations = res.data.body;
@@ -154,17 +143,33 @@ function AllLocations() {
     }, []);
 
     const handleVisibility = (id) => (event) => {
-        const baseURL = "http://localhost:8080/admin/location/" + id;
-        axios
-            .patch(baseURL)
-            .then((response) => {
-                alert(response.data.message);
-                axios.get("http://localhost:8080/admin/location")
-                    .then(res => {
-                        const locations = res.data.body;
-                        setRows(locations);
-                    })
-            });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to change the visibility of the location?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: 'black',
+            confirmButtonText: 'Yes, change it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const baseURL = "http://localhost:8080/admin/location/" + id;
+                axios
+                    .patch(baseURL)
+                    .then((response) => {
+                        axios.get("http://localhost:8080/admin/location")
+                            .then(res => {
+                                const locations = res.data.body;
+                                setRows(locations);
+                            });
+                        Swal.fire(
+                            'Status Changed!',
+                            'Status changed successfully.',
+                            'success'
+                        );
+                    });
+            }
+        })
     };
 
     return (

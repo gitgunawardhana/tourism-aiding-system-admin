@@ -15,6 +15,8 @@ import * as FaIcons from "react-icons/fa";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Switch from '@mui/material/Switch';
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const columns = [
     {
@@ -119,8 +121,42 @@ function AllLocationAttractions() {
         navigate("/location/attraction/edit");
     };
 
-    const handleChange = (event) => {
+    const handleVisibility = (id) => (event) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to change the visibility of the location attraction?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: 'black',
+            confirmButtonText: 'Yes, change it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // const baseURL = "http://localhost:8080/admin/location/" + id;
+                // axios
+                //     .patch(baseURL)
+                //     .then((response) => {
+                //         axios.get("http://localhost:8080/admin/location")
+                //             .then(res => {
+                //                 const locations = res.data.body;
+                //                 setRows(locations);
+                //             });
+                //         Swal.fire(
+                //             'Status Changed!',
+                //             'Status changed successfully.',
+                //             'success'
+                //         );
+                //     });
+
+                Swal.fire(
+                    'Status Changed!',
+                    'Status changed successfully.',
+                    'success'
+                );
+            }
+        })
     };
+
     return (
         <div className="card">
             <h3>Attractions around the Location</h3>
@@ -182,7 +218,7 @@ function AllLocationAttractions() {
                                                         <TableCell key={column.id} align={column.align}>
                                                             <Switch
                                                                 checked={true}
-                                                                onChange={handleChange}
+                                                                onChange={handleVisibility(row.id)}
                                                                 inputProps={{'aria-label': 'controlled'}}
                                                             />
                                                         </TableCell>
