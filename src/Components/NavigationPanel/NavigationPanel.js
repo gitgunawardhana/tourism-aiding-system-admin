@@ -8,11 +8,12 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {useLocation} from "react-router";
 
 function NavigationPanel() {
 
-    const configurations = ["Driver Fare", "Vehicle Types", "Accommodation Types",
-        "Room Facilities", "Bathroom Facilities", "Provinces", "Location activities"];
+    const location = useLocation();
+    const currentPath = location.pathname;
 
     const Accordion = styled((props) => (
         <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -38,9 +39,6 @@ function NavigationPanel() {
         },
         '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
             transform: 'rotate(180deg)',
-        },
-        '& .MuiAccordionSummary-content': {
-            // marginLeft: theme.spacing(1),
         },
     }));
 
@@ -74,7 +72,9 @@ function NavigationPanel() {
                                     <Grid item xs={1}>
                                     </Grid>
                                     <Grid item xs={9}>
-                                        <Link to={item.path} className="navigation-item-link">
+                                        <Link to={item.path} className={currentPath.endsWith(item.path)
+                                            ? "navigation-item-link active"
+                                            : "navigation-item-link"}>
                                             <span>{item.title}</span>
                                         </Link>
                                     </Grid>
@@ -86,7 +86,9 @@ function NavigationPanel() {
                                     <Grid container spacing={0} className="navigation-item navigation-sub-item">
                                         <Grid item xs={2}/>
                                         <Grid item xs={9}>
-                                            <Link to={subItem.path} className="navigation-item-link">
+                                            <Link to={subItem.path} className={currentPath.endsWith(subItem.path)
+                                                ? "navigation-item-link active"
+                                                : "navigation-item-link"}>
                                                 <span>{subItem.title}</span>
                                             </Link>
                                         </Grid>
