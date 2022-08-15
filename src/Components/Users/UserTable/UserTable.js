@@ -401,6 +401,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import {Link} from "react-router-dom";
+import * as FaIcons from "react-icons/fa";
 
 const columns = [
     {
@@ -451,6 +453,12 @@ const columns = [
         minWidth: 150,
         align: 'center'
     },
+    {
+        id: 'viewMoreDetails',
+        label: 'View More Details',
+        minWidth: 100,
+        align: 'center'
+    }
 ];
 
 function createData(id, firstName, lastName, nic, email, mobile, address, country) {
@@ -517,11 +525,21 @@ export default function StickyHeadTable() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {value}
-                                                </TableCell>
-                                            );
+                                            if (column.label === "View More Details") {
+                                                return (
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        <Link to={"/user/" + row.id}>
+                                                            <FaIcons.FaEye className="view-more"/>
+                                                        </Link>
+                                                    </TableCell>
+                                                );
+                                            } else {
+                                                return (
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        {value}
+                                                    </TableCell>
+                                                );
+                                            }
                                         })}
                                     </TableRow>
                                 );
