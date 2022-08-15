@@ -6,7 +6,7 @@ import Home from "./Pages/Home/Home";
 import Configurations from "./Pages/Configurations/Configurations";
 import Users from "./Pages/Users/Users";
 import Vendors from "./Pages/Vendors/Vendors";
-import SingleVendor from "./Pages/SingleVendor/SingleVendor";
+import SingleVendor from "./Pages/Vendors/SingleVendor";
 import SingleAccommodation from "./Pages/Accommodations/SingleAccommodation";
 import Locations from "./Pages/Locations/Locations";
 import NewLocation from "./Pages/Locations/NewLocation";
