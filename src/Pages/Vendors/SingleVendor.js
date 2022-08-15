@@ -1,6 +1,5 @@
 import React from "react";
 import SingleVendorForm from "../../Components/Vendors/SingleVendor/SingleVendorForm/SingleVendorForm";
-import "./SingleVendor.css"
 import AccommodationDetails from "../../Components/Vendors/SingleVendor/AccommodationDetails/AccommodationDetails";
 import VehicleRentalDetails from "../../Components/Vendors/SingleVendor/VehicleRentalDetails/VehicleRentalDetails";
 
