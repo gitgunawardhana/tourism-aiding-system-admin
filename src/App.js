@@ -25,6 +25,8 @@ import LocationActivities from "./Pages/Configurations/LocationActivities/Locati
 import DriverFare from "./Pages/Configurations/DriverFare/DriverFare";
 import EditDriverFare from "./Pages/Configurations/DriverFare/EditDriverFare";
 import SingleUser from "./Pages/Users/SingleUser";
+import SingleAccommodationReservation from "./Pages/Users/UserAccommodationReservations/SingleAccommodationReservation";
+import SingleVehicleReservation from "./Pages/Users/UserVehicleReservations/SingleVehicleReservation";
 
 function App() {
     return (
@@ -35,9 +37,11 @@ function App() {
                 <Routes>
                     <Route path='/' exact element={<Home/>}/>
                     <Route path='/users' element={<Users/>}/>
-                    <Route path='/user' element={<SingleUser/>}/>
+                    <Route path='/user/:id' element={<SingleUser/>}/>
+                    <Route path='/user/accommodation-reservation' element={<SingleAccommodationReservation/>}/>
+                    <Route path='/user/vehicle-reservation' element={<SingleVehicleReservation/>}/>
                     <Route path='/vendors' element={<Vendors/>}/>
-                    <Route path='/vendor/;id' element={<SingleVendor/>}/>
+                    <Route path='/vendor' element={<SingleVendor/>}/>
                     <Route path='/accommodation' element={<SingleAccommodation/>}/>
                     <Route path='/locations' element={<Locations/>}/>
                     <Route path='/location/new' element={<NewLocation/>}/>

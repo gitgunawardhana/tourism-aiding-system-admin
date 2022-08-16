@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from '@mui/material/InputLabel';
 
-const SingleVendorForm = props => {
+function SingleVendorForm() {
     return (
         <div className="card">
             <h3>Basic Details</h3>
