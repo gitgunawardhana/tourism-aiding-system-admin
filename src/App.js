@@ -1,5 +1,14 @@
-import React from "react";
+import logo from './logo.svg';
 import './App.css';
+<<<<<<< HEAD
+
+function App() {
+  return (
+    <div className="App">
+      <h1>snds</h1>
+    </div>
+  );
+=======
 import NavigationPanel from "./Components/NavigationPanel/NavigationPanel";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from "./Pages/Home/Home";
@@ -63,6 +72,7 @@ function App() {
             </Router>
         </>
     );
+>>>>>>> 71b1eddde957b1e70b871996a1bf25c06f8daa9c
 }
 
 export default App;
