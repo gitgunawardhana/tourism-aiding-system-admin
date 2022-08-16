@@ -6,17 +6,26 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+<<<<<<< HEAD
     "bootstrap": "^5.1.3",
     "jquery": "^3.6.0",
     "mdb-ui-kit": "^4.2.0",
     "popper.js": "^1.16.1",
+=======
+    "axios": "^0.27.2",
+    "moment": "^2.29.4",
+>>>>>>> 71b1eddde957b1e70b871996a1bf25c06f8daa9c
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
+=======
+    "sweetalert2": "^11.4.26",
+>>>>>>> 71b1eddde957b1e70b871996a1bf25c06f8daa9c
     "web-vitals": "^2.1.4"
   },
   "scripts": {
