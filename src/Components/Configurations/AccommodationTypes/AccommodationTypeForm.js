@@ -6,6 +6,10 @@ import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageList from "@mui/material/ImageList";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const endpointBaseURL = "http://localhost:8080/admin/accommodation-type";
 
 function AccommodationTypeForm(props) {
 
@@ -23,7 +27,7 @@ function AccommodationTypeForm(props) {
     const [id, setId] = useState(props.id);
     const [typeName, setTypeName] = useState(props.typeName);
     const [image, setImage] = useState(props.image);
-    const [imageBase64, setImageBase64] = useState(props.pricePerKilometer);
+    const [imageBase64, setImageBase64] = useState("");
 
     const handleTypeNameChange = event => {
         setTypeName(event.target.value);
@@ -45,6 +49,75 @@ function AccommodationTypeForm(props) {
             reader.onload = () => resolve(reader.result);
             reader.onerror = error => reject(error);
         });
+    }
+
+    const saveAccommodationType = event => {
+        const data = {
+            name: typeName,
+            image: imageBase64
+        }
+
+        axios.post(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
+
+    const updateAccommodationType = event => {
+        const data = {
+            id: id,
+            name: typeName,
+            image: imageBase64 === "" ? image : imageBase64
+        }
+
+        axios.put(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
     }
 
     return (
@@ -90,7 +163,10 @@ function AccommodationTypeForm(props) {
                             </ImageList>
 
                         </div>
-                        <CreateButton>{props.action === "update" ? "Update Accommodation Type" : "Save New Accommodation Type"}</CreateButton>
+                        <CreateButton
+                            onClick={props.action === "update" ? updateAccommodationType : saveAccommodationType}>
+                            {props.action === "update" ? "Update Accommodation Type" : "Save New Accommodation Type"}
+                        </CreateButton>
                     </Box>
                 </div>
             </div>
