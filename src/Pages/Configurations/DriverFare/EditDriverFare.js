@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import "../Configurations.css"
 import Box from "@mui/material/Box";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function EditDriverFare() {
 
@@ -28,6 +30,45 @@ function EditDriverFare() {
         marginLeft: '25%',
         color: 'white'
     }));
+
+    useEffect(() => {
+        getDriverFare();
+    }, []);
+
+    const getDriverFare = () => {
+        axios.get("http://localhost:8080/admin/driver/fare-per-night")
+            .then(res => {
+                const response = res.data.body;
+                setDriverFare(response);
+            })
+    }
+
+    const updateDriverFare = event => {
+        axios.post("http://localhost:8080/admin/driver/fare-per-night", null, {params: {"price": driverFare}})
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => getDriverFare())
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => getDriverFare())
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => getDriverFare())
+            })
+
+    }
 
     return (
         <>
@@ -58,7 +99,7 @@ function EditDriverFare() {
                                            onChange={handleDriverFareChange}/>
                                 <br/><br/>
                             </div>
-                            <CreateButton>Save Changes</CreateButton>
+                            <CreateButton onClick={updateDriverFare}>Save Changes</CreateButton>
                         </Box>
                     </div>
                 </div>

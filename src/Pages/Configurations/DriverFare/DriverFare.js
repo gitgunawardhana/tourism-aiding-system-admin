@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import "../Configurations.css"
 import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function DriverFare() {
 
@@ -35,6 +36,19 @@ function DriverFare() {
     function editDriverFare(){
         navigate("/configurations/driver-fare/edit");
     }
+
+    useEffect(() => {
+        getDriverFare();
+    }, []);
+
+    const getDriverFare = () => {
+        axios.get("http://localhost:8080/admin/driver/fare-per-night")
+            .then(res => {
+                const response = res.data.body;
+                setDriverFare(response);
+            })
+    }
+
     return (
         <>
             <div className="lower-nav-bar">
