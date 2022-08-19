@@ -6,6 +6,10 @@ import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageList from "@mui/material/ImageList";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const endpointBaseURL = "http://localhost:8080/admin/facility";
 
 function RoomFacilityForm(props) {
 
@@ -45,6 +49,76 @@ function RoomFacilityForm(props) {
             reader.onload = () => resolve(reader.result);
             reader.onerror = error => reject(error);
         });
+    }
+
+
+    const saveFacility = event => {
+        const data = {
+            name: facilityName,
+            image: imageBase64
+        }
+
+        axios.post(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
+
+    const updateFacility = event => {
+        const data = {
+            id: id,
+            name: facilityName,
+            image: imageBase64 === "" ? image : imageBase64
+        }
+
+        axios.put(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
     }
 
     return (
@@ -90,7 +164,10 @@ function RoomFacilityForm(props) {
                             </ImageList>
 
                         </div>
-                        <CreateButton>{props.action === "update" ? "Update Room Facility" : "Save New Room Facility"}</CreateButton>
+                        <CreateButton
+                            onClick={props.action === "update" ? updateFacility : saveFacility}>
+                            {props.action === "update" ? "Update Room Facility" : "Save New Room Facility"}
+                        </CreateButton>
                     </Box>
                 </div>
             </div>
