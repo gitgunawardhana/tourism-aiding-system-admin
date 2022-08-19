@@ -6,6 +6,10 @@ import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageList from "@mui/material/ImageList";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const endpointBaseURL = "http://localhost:8080/admin/bathroom-facility";
 
 function BathroomFacilityForm(props) {
 
@@ -23,7 +27,7 @@ function BathroomFacilityForm(props) {
     const [id, setId] = useState(props.id);
     const [facilityName, setFacilityName] = useState(props.facilityName);
     const [image, setImage] = useState(props.image);
-    const [imageBase64, setImageBase64] = useState(props.pricePerKilometer);
+    const [imageBase64, setImageBase64] = useState("");
 
     const handleFacilityNameChange = event => {
         setFacilityName(event.target.value);
@@ -45,6 +49,75 @@ function BathroomFacilityForm(props) {
             reader.onload = () => resolve(reader.result);
             reader.onerror = error => reject(error);
         });
+    }
+
+    const saveBathroomFacility = event => {
+        const data = {
+            name: facilityName,
+            image: imageBase64
+        }
+
+        axios.post(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
+
+    const updateBathroomFacility = event => {
+        const data = {
+            id: id,
+            name: facilityName,
+            image: image
+        }
+
+        axios.put(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
     }
 
     return (
@@ -90,7 +163,10 @@ function BathroomFacilityForm(props) {
                             </ImageList>
 
                         </div>
-                        <CreateButton>{props.action === "update" ? "Update Bathroom Facility" : "Save New Bathroom Facility"}</CreateButton>
+                        <CreateButton
+                            onClick={props.action === "update" ? updateBathroomFacility : saveBathroomFacility}>
+                            {props.action === "update" ? "Update Bathroom Facility" : "Save New Bathroom Facility"}
+                        </CreateButton>
                     </Box>
                 </div>
             </div>
