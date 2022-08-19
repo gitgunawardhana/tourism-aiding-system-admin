@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import {styled} from "@mui/material/styles";
@@ -16,8 +16,7 @@ import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import VehicleTypeForm from "../../../Components/Configurations/VehicleTypes/VehicleTypeForm";
 import Swal from 'sweetalert2';
-
-// const Swal = require('sweetalert2');
+import axios from "axios";
 
 //Table columns
 const columns = [
@@ -28,19 +27,19 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'typeName',
+        id: 'name',
         label: 'Type Name',
         minWidth: 100,
         align: 'center'
     },
     {
-        id: 'pricePerKilometer',
+        id: 'rentalPricePerKm',
         label: 'Price Per Kilometer',
         minWidth: 100,
         align: 'center'
     },
     {
-        id: 'visibilityStatus',
+        id: 'status',
         label: 'Visibility',
         minWidth: 100,
         align: 'center'
@@ -53,12 +52,7 @@ const columns = [
     }
 ];
 
-//Create data for table row
-function createData(id, typeName, pricePerKilometer, visibilityStatus) {
-    return {
-        id, typeName, pricePerKilometer, visibilityStatus
-    }
-}
+const endpointBaseURL = "http://localhost:8080/admin/vehicle-type";
 
 function VehicleTypes() {
 
@@ -103,19 +97,18 @@ function VehicleTypes() {
         return JSON.stringify(res, null, 2);
     };
 
-    const rows = [
-        createData(45, "Small", 250.00, "VISIBLE"),
-        createData(46, "Medium", 500.00, "VISIBLE"),
-    ];
-    // const [rows, setRows] = useState([]);
-    // useEffect(() => {
-    //     axios.get("http://localhost:8080/admin/location")
-    //         .then(res => {
-    //             const locations = res.data.body;
-    //             setRows(locations);
-    //         })
-    // }, []);
+    const [rows, setRows] = useState([]);
+    useEffect(() => {
+        getVehicleTypes();
+    }, []);
 
+    const getVehicleTypes = () => {
+        axios.get(endpointBaseURL)
+            .then(res => {
+                const types = res.data.body;
+                setRows(types);
+            })
+    }
     const handleVisibility = (id) => (event) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -127,23 +120,24 @@ function VehicleTypes() {
             confirmButtonText: 'Yes, change it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                //backend call
-                // const baseURL = "http://localhost:8080/admin/location/" + id;
-                // axios
-                //     .patch(baseURL)
-                //     .then((response) => {
-                //         alert(response.data.message);
-                //         axios.get("http://localhost:8080/admin/location")
-                //             .then(res => {
-                //                 const locations = res.data.body;
-                //                 setRows(locations);
-                //             })
-                //     });
-                Swal.fire(
-                    'Status Changed!',
-                    'Status changed successfully.',
-                    'success'
-                )
+                const endpointURL = endpointBaseURL + "/" + id;
+                axios.patch(endpointURL)
+                    .then((response) => {
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Status Changed!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getVehicleTypes())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
+                    });
             }
         })
     };
@@ -175,12 +169,24 @@ function VehicleTypes() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                //backend call
-                Swal.fire(
-                    'Deleted!',
-                    'Vehicle type has been deleted.',
-                    'success'
-                )
+                const endpointURL = endpointBaseURL + "/" + id;
+                axios.delete(endpointURL)
+                    .then((response) => {
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getVehicleTypes())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
+                    });
             }
         })
     };
@@ -241,7 +247,7 @@ function VehicleTypes() {
                                                             return (
                                                                 <TableCell key={column.id} align={column.align}>
                                                                     <div className="more-action more-action-edit"
-                                                                         onClick={editVehicleType(row.id, row.typeName, row.pricePerKilometer)}>
+                                                                         onClick={editVehicleType(row.id, row.name, row.rentalPricePerKm)}>
                                                                         <FaIcons.FaPencilRuler/>
                                                                     </div>
                                                                     <div className="more-action more-action-delete"

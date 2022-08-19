@@ -4,6 +4,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const endpointBaseURL = "http://localhost:8080/admin/vehicle-type";
 
 function VehicleTypeForm(props) {
 
@@ -29,6 +33,76 @@ function VehicleTypeForm(props) {
     const handlePricePerKilometerChange = event => {
         setPricePerKilometer(parseFloat(event.target.value));
     }
+
+    const saveVehicleType = event => {
+        const data = {
+            name: typeName,
+            rentalPricePerKm: pricePerKilometer
+        }
+
+        axios.post(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
+
+    const updateVehicleType = event => {
+        const data = {
+            id: id,
+            name: typeName,
+            rentalPricePerKm: pricePerKilometer
+        }
+
+        axios.put(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
+
 
     return (
         <div className="popup-box">
@@ -59,7 +133,10 @@ function VehicleTypeForm(props) {
                                        value={pricePerKilometer}
                                        onChange={handlePricePerKilometerChange}/>
                         </div>
-                        <CreateButton>{props.action === "update" ? "Update Vehicle Type" : "Save New Vehicle Type"}</CreateButton>
+                        <CreateButton
+                            onClick={props.action === "update" ? updateVehicleType : saveVehicleType}>
+                            {props.action === "update" ? "Update Vehicle Type" : "Save New Vehicle Type"}
+                        </CreateButton>
                     </Box>
                 </div>
             </div>
