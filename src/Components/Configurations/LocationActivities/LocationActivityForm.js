@@ -6,6 +6,10 @@ import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageList from "@mui/material/ImageList";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const endpointBaseURL = "http://localhost:8080/admin/activity";
 
 function LocationActivityForm(props) {
 
@@ -23,7 +27,7 @@ function LocationActivityForm(props) {
     const [id, setId] = useState(props.id);
     const [activityName, setActivityName] = useState(props.activityName);
     const [image, setImage] = useState(props.image);
-    const [imageBase64, setImageBase64] = useState(props.pricePerKilometer);
+    const [imageBase64, setImageBase64] = useState("");
 
     const handleActivityNameChange = event => {
         setActivityName(event.target.value);
@@ -47,6 +51,74 @@ function LocationActivityForm(props) {
         });
     }
 
+    const saveLocationActivity = event => {
+        const data = {
+            activityName: activityName,
+            image: imageBase64
+        }
+
+        axios.post(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
+
+    const updateLocationActivity = event => {
+        const data = {
+            id: id,
+            activityName: activityName,
+            image: imageBase64 === "" ? image : imageBase64
+        }
+
+        axios.put(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
     return (
         <div className="popup-box">
             <div className="box">
@@ -90,7 +162,10 @@ function LocationActivityForm(props) {
                             </ImageList>
 
                         </div>
-                        <CreateButton>{props.action === "update" ? "Update Location Activity" : "Save New Location Activity"}</CreateButton>
+                        <CreateButton
+                            onClick={props.action === "update" ? updateLocationActivity : saveLocationActivity}>
+                            {props.action === "update" ? "Update Location Activity" : "Save New Location Activity"}
+                        </CreateButton>
                     </Box>
                 </div>
             </div>

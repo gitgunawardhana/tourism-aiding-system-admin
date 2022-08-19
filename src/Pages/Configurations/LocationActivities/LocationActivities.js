@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import {styled} from "@mui/material/styles";
@@ -17,6 +17,7 @@ import Paper from "@mui/material/Paper";
 import Swal from 'sweetalert2';
 import Image from '../../../Assets/Accommodations/accommodation-1.jpg';
 import LocationActivityForm from "../../../Components/Configurations/LocationActivities/LocationActivityForm";
+import axios from "axios";
 
 //Table columns
 const columns = [
@@ -39,7 +40,7 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'visibilityStatus',
+        id: 'status',
         label: 'Visibility',
         minWidth: 100,
         align: 'center'
@@ -52,12 +53,7 @@ const columns = [
     }
 ];
 
-//Create data for table row
-function createData(id, activityName, image, visibilityStatus) {
-    return {
-        id, activityName, image, visibilityStatus
-    }
-}
+const endpointBaseURL = "http://localhost:8080/admin/activity";
 
 function LocationActivities() {
 
@@ -102,18 +98,18 @@ function LocationActivities() {
         return JSON.stringify(res, null, 2);
     };
 
-    const rows = [
-        createData(45, "Hiking", {Image}, "VISIBLE"),
-        createData(46, "Nature Explore", {Image}, "VISIBLE"),
-    ];
-    // const [rows, setRows] = useState([]);
-    // useEffect(() => {
-    //     axios.get("http://localhost:8080/admin/location")
-    //         .then(res => {
-    //             const locations = res.data.body;
-    //             setRows(locations);
-    //         })
-    // }, []);
+    const [rows, setRows] = useState([]);
+    useEffect(() => {
+        getLocationActivities();
+    }, []);
+
+    const getLocationActivities = () => {
+        axios.get(endpointBaseURL)
+            .then(res => {
+                const facilities = res.data.body;
+                setRows(facilities);
+            })
+    }
 
     const handleVisibility = (id) => (event) => {
         Swal.fire({
@@ -126,23 +122,24 @@ function LocationActivities() {
             confirmButtonText: 'Yes, change it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                //backend call
-                // const baseURL = "http://localhost:8080/admin/location/" + id;
-                // axios
-                //     .patch(baseURL)
-                //     .then((response) => {
-                //         alert(response.data.message);
-                //         axios.get("http://localhost:8080/admin/location")
-                //             .then(res => {
-                //                 const locations = res.data.body;
-                //                 setRows(locations);
-                //             })
-                //     });
-                Swal.fire(
-                    'Status Changed!',
-                    'Status changed successfully.',
-                    'success'
-                )
+                const endpointURL = endpointBaseURL + "/" + id;
+                axios.patch(endpointURL)
+                    .then((response) => {
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Status Changed!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getLocationActivities())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
+                    });
             }
         })
     };
@@ -174,12 +171,24 @@ function LocationActivities() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                //backend call
-                Swal.fire(
-                    'Deleted!',
-                    'Location activity has been deleted.',
-                    'success'
-                )
+                const endpointURL = endpointBaseURL + "/" + id;
+                axios.delete(endpointURL)
+                    .then((response) => {
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getLocationActivities())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
+                    });
             }
         })
     };
@@ -262,7 +271,7 @@ function LocationActivities() {
                                                         } else if (column.label === "Image") {
                                                             return (
                                                                 <TableCell key={column.id} align={column.align}>
-                                                                    <img width="150px" src={Image}
+                                                                    <img width="150px" src={value}
                                                                          alt="Location Activity Image"/>
                                                                 </TableCell>
                                                             );
