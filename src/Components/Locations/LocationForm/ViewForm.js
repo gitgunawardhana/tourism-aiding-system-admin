@@ -36,7 +36,6 @@ function ViewForm(props) {
         axios.get("http://localhost:8080/admin/location/" + props.id)
             .then(res => {
                 const response = res.data.body;
-                console.log(response);
                 setId(response.id);
                 setName(response.name);
                 setLongitude(response.longitude);

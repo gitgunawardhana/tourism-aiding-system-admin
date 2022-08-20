@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
@@ -56,7 +56,7 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'visibility',
+        id: 'visibilityStatus',
         label: 'Visibility',
         minWidth: 100,
         align: 'center'
@@ -70,39 +70,22 @@ const columns = [
 
 ];
 
-function createData(id, name, telephone, email, website, modifiedDateTime) {
+function AllLocationAttractions(props) {
 
-    return {
-        id,
-        name,
-        telephone,
-        email,
-        website,
-        modifiedDateTime
-    }
-}
-
-const rows = [
-    createData(45, "Sri Dalada Maligawa", "+94116728392", "example@gmail.com", "example.com", "24-07-2022 14:08:00"),
-    createData(46, "Sri Dalada Maligawa", "+94116728392", "example@gmail.com", "example.com", "24-07-2022 14:08:00")
-
-];
-
-function AllLocationAttractions() {
     const navigate = useNavigate();
-    const navigateToNewLocationAttraction = () => {
-        navigate('/location/attraction/new');
-    };
-    const StyledButton = styled(Button)(({theme}) => ({
-        backgroundColor: '#00565b',
-        '&:hover': {
-            backgroundColor: '#00565b'
-        },
-        width: '100%',
-    }));
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rows, setRows] = useState([]);
+    const [searchText, setSearchText] = useState("");
+
+    useEffect(() => {
+        getLocationAttractions();
+    }, []);
+
+    const navigateToNewLocationAttraction = () => {
+        navigate('/location/attraction/new/' + props.locationId);
+    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -113,12 +96,29 @@ function AllLocationAttractions() {
         setPage(0);
     };
 
-    const viewLocation = (action) => {
-        navigate("/location/attraction/view");
+    const getLocationAttractions = () => {
+        axios.get("http://localhost:8080/admin/location/attraction", {
+            params: {
+                "text": searchText,
+                "locationId": props.locationId
+            }
+        })
+            .then(res => {
+                const locationAttractions = res.data.body;
+                setRows(locationAttractions);
+            })
+    }
+
+    const handleSearchTextChange = event => {
+        setSearchText(event.target.value);
+    }
+
+    const viewLocationAttraction = (id) => (action) => {
+        navigate("/location/attraction/view/" + id);
     };
 
-    const editLocation = (action) => {
-        navigate("/location/attraction/edit");
+    const editLocationAttraction = (id) => (action) => {
+        navigate("/location/attraction/edit/" + id);
     };
 
     const handleVisibility = (id) => (event) => {
@@ -132,30 +132,42 @@ function AllLocationAttractions() {
             confirmButtonText: 'Yes, change it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // const baseURL = "http://localhost:8080/admin/location/" + id;
-                // axios
-                //     .patch(baseURL)
-                //     .then((response) => {
-                //         axios.get("http://localhost:8080/admin/location")
-                //             .then(res => {
-                //                 const locations = res.data.body;
-                //                 setRows(locations);
-                //             });
-                //         Swal.fire(
-                //             'Status Changed!',
-                //             'Status changed successfully.',
-                //             'success'
-                //         );
-                //     });
-
-                Swal.fire(
-                    'Status Changed!',
-                    'Status changed successfully.',
-                    'success'
-                );
+                const endpointURL = "http://localhost:8080/admin/location/attraction/" + id;
+                axios.patch(endpointURL)
+                    .then((response) => {
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Status Changed!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getLocationAttractions())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
+                    });
             }
+        }).catch(err => {
+            Swal.fire(
+                'Failed',
+                'Something went wrong',
+                'error'
+            ).then(r => {
+            })
         })
     };
+
+    const StyledButton = styled(Button)(({theme}) => ({
+        backgroundColor: '#00565b',
+        '&:hover': {
+            backgroundColor: '#00565b'
+        },
+        width: '100%',
+    }));
 
     return (
         <div className="card">
@@ -168,6 +180,9 @@ function AllLocationAttractions() {
                         id="location-attraction--search"
                         label="Search Location Attractions"
                         variant="outlined"
+                        value={searchText}
+                        onKeyUp={getLocationAttractions}
+                        onChange={handleSearchTextChange}
                     />
                 </Grid>
                 <Grid item xs={3}>
@@ -204,11 +219,11 @@ function AllLocationAttractions() {
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
                                                             <div className="more-action more-action-view"
-                                                                 onClick={viewLocation}>
+                                                                 onClick={viewLocationAttraction(row.id)}>
                                                                 <FaIcons.FaEye/>
                                                             </div>
                                                             <div className="more-action more-action-edit"
-                                                                 onClick={editLocation}>
+                                                                 onClick={editLocationAttraction(row.id)}>
                                                                 <FaIcons.FaPencilRuler/>
                                                             </div>
                                                         </TableCell>
@@ -217,7 +232,7 @@ function AllLocationAttractions() {
                                                     return (
                                                         <TableCell key={column.id} align={column.align}>
                                                             <Switch
-                                                                checked={true}
+                                                                checked={value === "VISIBLE"}
                                                                 onChange={handleVisibility(row.id)}
                                                                 inputProps={{'aria-label': 'controlled'}}
                                                             />

@@ -1,13 +1,8 @@
-import React, {useState} from "react";
-import VendorForm from "../../Components/Vendors/VendorForm/VendorForm";
+import React from "react";
 import AllLocations from "../../Components/Locations/LocationsTable/AllLocations";
 
 function Locations() {
 
-    const [isFormOpen, setIsFormOpen] = useState(false);
-    const toggleFormPopup = () => {
-        setIsFormOpen(!isFormOpen);
-    }
     return (
         <>
             <div className="lower-nav-bar">
@@ -18,9 +13,6 @@ function Locations() {
                 <div className="card">
                     <AllLocations/>
                 </div>
-                {isFormOpen && <VendorForm
-                    handleClose={toggleFormPopup}
-                />}
             </div>
         </>
     )

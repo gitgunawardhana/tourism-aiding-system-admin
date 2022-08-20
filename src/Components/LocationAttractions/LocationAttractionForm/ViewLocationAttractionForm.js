@@ -1,36 +1,39 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./LocationAttractionForm.css";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import axios from "axios";
 
-function ViewLocationAttractionForm() {
+function ViewLocationAttractionForm(props) {
 
-    const [itemData, setItemData] = useState([]);
+    const [id, setId] = useState("");
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [telephone, setTelephone] = useState("");
+    const [email, setEmail] = useState("");
+    const [website, setWebsite] = useState("");
+    const [pictures, setPictures] = useState([]);
 
-    const handleImageChange = event => {
-        let image = event.target.files[0];
-        let url = URL.createObjectURL(image);
-        let name = image.name;
-        let type = image.type;
-        let id = itemData.length + 1;
-        let items = [];
-        {
-            itemData.map((item) => (
-                items.push(item)
-            ))
-        }
-        items.push(createData(id, url, name, type));
-        setItemData(items);
-    };
+    useEffect(() => {
+        getLocationAttractionDetails();
+    }, []);
 
-    function createData(id, url, name, type) {
-        return {
-            id, url, name, type
-        };
+
+    const getLocationAttractionDetails = () => {
+        axios.get("http://localhost:8080/admin/location/attraction/" + props.id)
+            .then(res => {
+                const response = res.data.body;
+                setId(response.id);
+                setName(response.name);
+                setDescription(response.description);
+                setTelephone(response.telephone);
+                setEmail(response.email);
+                setWebsite(response.website);
+                setPictures(response.locationAttractionPictures);
+            })
     }
-
     return (
         <>
             <div className="card">
@@ -46,7 +49,11 @@ function ViewLocationAttractionForm() {
                             InputProps={{
                                 readOnly: true,
                             }}
-                            id="name" label="Location Attraction Name" type="text" sx={{m: 1, width: '97%'}}/>
+                            id="name"
+                            label="Location Attraction Name"
+                            type="text"
+                            value={name}
+                            sx={{m: 1, width: '97%'}}/>
                         <TextField
                             InputProps={{
                                 readOnly: true,
@@ -55,23 +62,36 @@ function ViewLocationAttractionForm() {
                             label="Description"
                             multiline
                             maxRows={10}
+                            value={description}
                             sx={{m: 1, width: '97%'}}
                         />
                         <TextField
                             InputProps={{
                                 readOnly: true,
                             }}
-                            id="telephone" label="Telephone" type="text" sx={{m: 1, width: '32%'}}/>
+                            id="telephone"
+                            label="Telephone"
+                            type="text"
+                            value={telephone}
+                            sx={{m: 1, width: '32%'}}/>
                         <TextField
                             InputProps={{
                                 readOnly: true,
                             }}
-                            id="email" label="Email" type="text" sx={{m: 1, width: '32%'}}/>
+                            id="email"
+                            label="Email"
+                            type="text"
+                            value={email}
+                            sx={{m: 1, width: '32%'}}/>
                         <TextField
                             InputProps={{
                                 readOnly: true,
                             }}
-                            id="website" label="Website" type="text" sx={{m: 1, width: '32%'}}/>
+                            id="website"
+                            label="Website"
+                            type="text"
+                            value={website}
+                            sx={{m: 1, width: '32%'}}/>
                     </div>
                 </Box>
                 <h3>Photo Gallery</h3>
@@ -83,11 +103,11 @@ function ViewLocationAttractionForm() {
                 >
                     <div>
                         <ImageList sx={{m: "2%", width: "96%", height: 500}} cols={3} rowHeight={3}>
-                            {itemData.map((item) => (
-                                <ImageListItem key={item.id}>
+                            {pictures.map((item) => (
+                                <ImageListItem>
                                     <img
-                                        src={item.url}
-                                        alt={item.name}
+                                        src={item}
+                                        alt="location attraction picture"
                                         loading="lazy"
                                     />
                                 </ImageListItem>

@@ -15,7 +15,7 @@ function ViewSingleLocation() {
             </div>
             <div className="main-section">
                     <ViewForm id={id}/>
-                    <AllLocationAttractions/>
+                    <AllLocationAttractions locationId={id}/>
             </div>
         </>
     );

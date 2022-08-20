@@ -47,9 +47,9 @@ function App() {
                     <Route path='/location/new' element={<NewLocation/>}/>
                     <Route path='/location/view/:id' element={<ViewSingleLocation/>}/>
                     <Route path='/location/edit/:id' element={<EditSingleLocation/>}/>
-                    <Route path='/location/attraction/new' element={<NewLocationAttraction/>}/>
-                    <Route path='/location/attraction/view' element={<ViewLocationAttraction/>}/>
-                    <Route path='/location/attraction/edit' element={<EditLocationAttraction/>}/>
+                    <Route path='/location/attraction/new/:locationId' element={<NewLocationAttraction/>}/>
+                    <Route path='/location/attraction/view/:id' element={<ViewLocationAttraction/>}/>
+                    <Route path='/location/attraction/edit/:id' element={<EditLocationAttraction/>}/>
                     <Route path='/configurations' element={<Configurations/>}/>
                     <Route path='/configurations/vehicle-types' element={<VehicleTypes/>}/>
                     <Route path='/configurations/accommodation-types' element={<AccommodationTypes/>}/>

@@ -15,6 +15,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
 import {styled} from "@mui/material/styles";
 import {useNavigate} from "react-router";
+import Swal from "sweetalert2";
 
 function ViewForm(props) {
 
@@ -43,7 +44,6 @@ function ViewForm(props) {
         axios.get("http://localhost:8080/admin/location/" + props.id)
             .then(res => {
                 const response = res.data.body;
-                console.log(response);
                 setId(response.id);
                 setName(response.name);
                 setLongitude(response.longitude);
@@ -137,6 +137,7 @@ function ViewForm(props) {
             }
         });
         const location = {
+            id:id,
             name: name,
             longitude: longitude,
             latitude: latitude,
@@ -147,10 +148,31 @@ function ViewForm(props) {
             locationActivities: locationActivityObjects
         };
 
-        axios.post("http://localhost:8080/admin/location", location)
+        axios.put("http://localhost:8080/admin/location", location)
             .then(res => {
-                alert(res.data.message);
-                navigate("/locations");
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => navigate("/locations"))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
             })
     }
 
@@ -270,7 +292,7 @@ function ViewForm(props) {
                     </div>
                 </Box>
             </div>
-            <UpdateButton variant="contained" size="large">
+            <UpdateButton variant="contained" size="large" onClick={handleSubmit}>
                 Update Location
             </UpdateButton>
         </>

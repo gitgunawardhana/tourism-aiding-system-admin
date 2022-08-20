@@ -15,6 +15,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
 import {styled} from "@mui/material/styles";
 import {useNavigate} from "react-router";
+import Swal from "sweetalert2";
 
 function NewForm() {
 
@@ -140,8 +141,28 @@ function NewForm() {
 
         axios.post("http://localhost:8080/admin/location", location)
             .then(res => {
-                alert(res.data.message);
-                navigate("/locations");
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => navigate("/locations"))
+                } else {
+                    Swal.fire(
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
             })
     }
 

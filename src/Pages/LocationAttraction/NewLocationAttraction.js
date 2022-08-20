@@ -1,21 +1,23 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./LocationAttraction.css";
-import {styled} from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import NewLocationAttractionForm
     from "../../Components/LocationAttractions/LocationAttractionForm/NewLocationAttractionForm";
+import {useParams} from "react-router";
+import TextField from "@mui/material/TextField";
+import axios from "axios";
 
 function NewLocationAttraction() {
+    let locationId = useParams().locationId;
 
-    const CreateButton = styled(Button)(({theme}) => ({
-        backgroundColor: '#00565b',
-        '&:hover': {
-            backgroundColor: '#00565b',
-            fontWeight: 'bold'
-        },
-        width: '50%',
-        marginLeft: '25%'
-    }));
+    const [locationName, setLocationName] = useState("");
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/admin/location/name/" + locationId)
+            .then(res => {
+                setLocationName(res.data.body)
+            })
+    }, []);
+
     return (
         <>
             <div className="lower-nav-bar">
@@ -23,10 +25,18 @@ function NewLocationAttraction() {
                 <p className="sub-title">Locations / Attractions / Create Attraction</p>
             </div>
             <div className="main-section">
-                <NewLocationAttractionForm/>
-                <CreateButton variant="contained" size="large">
-                    Add New Location Attraction
-                </CreateButton>
+                <div className="card">
+                    <TextField
+                        id="locationName"
+                        label="Location Name"
+                        type="text"
+                        value={locationName}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        sx={{m: 1, width: '97%'}}/>
+                </div>
+                <NewLocationAttractionForm locationId={locationId}/>
             </div>
         </>
     );

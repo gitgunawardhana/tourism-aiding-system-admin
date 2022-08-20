@@ -1,21 +1,13 @@
 import React from "react";
 import "./LocationAttraction.css";
-import {styled} from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import EditLocationAttractionForm
     from "../../Components/LocationAttractions/LocationAttractionForm/EditLocationAttractionForm";
+import {useParams} from "react-router";
 
 function EditLocationAttraction() {
 
-    const CreateButton = styled(Button)(({theme}) => ({
-        backgroundColor: '#00565b',
-        '&:hover': {
-            backgroundColor: '#00565b',
-            fontWeight: 'bold'
-        },
-        width: '50%',
-        marginLeft: '25%'
-    }));
+    let id = useParams().id;
+
     return (
         <>
             <div className="lower-nav-bar">
@@ -23,10 +15,7 @@ function EditLocationAttraction() {
                 <p className="sub-title">Locations / Attractions / Edit Attraction</p>
             </div>
             <div className="main-section">
-                <EditLocationAttractionForm/>
-                <CreateButton variant="contained" size="large">
-                    Update Location Attraction
-                </CreateButton>
+                <EditLocationAttractionForm id={id}/>
             </div>
         </>
     );

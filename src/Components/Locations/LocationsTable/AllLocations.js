@@ -76,41 +76,22 @@ const columns = [
 
 ];
 
-function createData(id, name, province, minimumDaysToSpend, numberOfAttractions, numberOfActivities, modifiedDateTime) {
-
-    return {
-        id,
-        name,
-        province,
-        minimumDaysToSpend,
-        numberOfAttractions,
-        numberOfActivities,
-        modifiedDateTime
-    }
-}
-
-// const rows = [
-//     createData(45, "Kandy", "CENTRAL", 5, 6, 10, "24-07-2022 14:08:00"),
-//     createData(46, "Galle", "SOUTHERN", 5, 6, 10, "24-07-2022 14:08:00"),
-//     createData(47, "Ella", "UVA", 5, 6, 10, "24-07-2022 14:08:00"),
-//
-// ];
-
 function AllLocations() {
+
     const navigate = useNavigate();
-    const navigateToNewLocation = () => {
-        navigate('/location/new');
-    };
-    const StyledButton = styled(Button)(({theme}) => ({
-        backgroundColor: '#00565b',
-        '&:hover': {
-            backgroundColor: '#00565b'
-        },
-        width: '100%'
-    }));
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rows, setRows] = useState([]);
+    const [searchText, setSearchText] = useState("");
+
+    useEffect(() => {
+        getLocations();
+    }, []);
+
+    const navigateToNewLocation = () => {
+        navigate('/location/new');
+    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -121,6 +102,22 @@ function AllLocations() {
         setPage(0);
     };
 
+    const getLocations = () => {
+        axios.get("http://localhost:8080/admin/location", {
+            params: {
+                "text": searchText
+            }
+        })
+            .then(res => {
+                const locations = res.data.body;
+                setRows(locations);
+            })
+    }
+
+    const handleSearchTextChange = event => {
+        setSearchText(event.target.value);
+    }
+
     const viewLocation = (id) => (action) => {
         navigate("/location/view/" + id);
     };
@@ -128,19 +125,6 @@ function AllLocations() {
     const editLocation = (id) => (action) => {
         navigate("/location/edit/" + id);
     };
-
-    const formatResponse = (res) => {
-        return JSON.stringify(res, null, 2);
-    };
-
-    const [rows, setRows] = useState([]);
-    useEffect(() => {
-        axios.get("http://localhost:8080/admin/location")
-            .then(res => {
-                const locations = res.data.body;
-                setRows(locations);
-            })
-    }, []);
 
     const handleVisibility = (id) => (event) => {
         Swal.fire({
@@ -157,20 +141,39 @@ function AllLocations() {
                 axios
                     .patch(baseURL)
                     .then((response) => {
-                        axios.get("http://localhost:8080/admin/location")
-                            .then(res => {
-                                const locations = res.data.body;
-                                setRows(locations);
-                            });
-                        Swal.fire(
-                            'Status Changed!',
-                            'Status changed successfully.',
-                            'success'
-                        );
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Status Changed!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getLocations())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
                     });
             }
+        }).catch(err => {
+            Swal.fire(
+                'Failed',
+                'Something went wrong',
+                'error'
+            ).then(r => {
+            })
         })
     };
+
+    const StyledButton = styled(Button)(({theme}) => ({
+        backgroundColor: '#00565b',
+        '&:hover': {
+            backgroundColor: '#00565b'
+        },
+        width: '100%'
+    }));
 
     return (
         <>
@@ -181,6 +184,9 @@ function AllLocations() {
                         id="location-search"
                         label="Search Locations"
                         variant="outlined"
+                        value={searchText}
+                        onKeyUp={getLocations}
+                        onChange={handleSearchTextChange}
                     />
                 </Grid>
                 <Grid item xs={3}>
