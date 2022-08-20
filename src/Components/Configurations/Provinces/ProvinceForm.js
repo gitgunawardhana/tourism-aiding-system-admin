@@ -4,6 +4,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import {styled} from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const endpointBaseURL = "http://localhost:8080/admin/province";
 
 function ProvinceForm(props) {
 
@@ -23,6 +27,73 @@ function ProvinceForm(props) {
 
     const handleProvinceNameChange = event => {
         setProvinceName(event.target.value);
+    }
+
+    const saveProvince = event => {
+        const data = {
+            name: provinceName
+        }
+
+        axios.post(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
+    }
+
+    const updateProvince = event => {
+        const data = {
+            id: id,
+            name: provinceName
+        }
+
+        axios.put(endpointBaseURL, data)
+            .then(res => {
+                if (res.data.success) {
+                    Swal.fire(
+                        'Done',
+                        res.data.message,
+                        'success'
+                    ).then(r => window.location.reload(false))
+                } else {
+                    Swal.fire(
+                        'Failed',
+                        res.data.message,
+                        'error'
+                    ).then(r => {
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire(
+                    'Failed',
+                    'Something went wrong',
+                    'error'
+                ).then(r => {
+                })
+            })
+
     }
 
     return (
@@ -51,7 +122,10 @@ function ProvinceForm(props) {
                                        value={provinceName}
                                        onChange={handleProvinceNameChange}/>
                         </div>
-                        <CreateButton>{props.action === "update" ? "Update Province" : "Save New Province"}</CreateButton>
+                        <CreateButton
+                            onClick={props.action === "update" ? updateProvince : saveProvince}>
+                            {props.action === "update" ? "Update Province" : "Save New Province"}
+                        </CreateButton>
                     </Box>
                 </div>
             </div>

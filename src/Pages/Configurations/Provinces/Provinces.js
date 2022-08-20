@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import {styled} from "@mui/material/styles";
@@ -16,6 +16,7 @@ import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Swal from 'sweetalert2';
 import ProvinceForm from "../../../Components/Configurations/Provinces/ProvinceForm";
+import axios from "axios";
 
 //Table columns
 const columns = [
@@ -26,13 +27,13 @@ const columns = [
         align: 'center'
     },
     {
-        id: 'provinceName',
+        id: 'name',
         label: 'Province Name',
         minWidth: 100,
         align: 'center'
     },
     {
-        id: 'visibilityStatus',
+        id: 'status',
         label: 'Visibility',
         minWidth: 100,
         align: 'center'
@@ -45,12 +46,7 @@ const columns = [
     }
 ];
 
-//Create data for table row
-function createData(id, provinceName, visibilityStatus) {
-    return {
-        id, provinceName, visibilityStatus
-    }
-}
+const endpointBaseURL = "http://localhost:8080/admin/province";
 
 function Provinces() {
 
@@ -94,18 +90,18 @@ function Provinces() {
         return JSON.stringify(res, null, 2);
     };
 
-    const rows = [
-        createData(45, "Southern", "VISIBLE"),
-        createData(46, "Western", "VISIBLE"),
-    ];
-    // const [rows, setRows] = useState([]);
-    // useEffect(() => {
-    //     axios.get("http://localhost:8080/admin/location")
-    //         .then(res => {
-    //             const locations = res.data.body;
-    //             setRows(locations);
-    //         })
-    // }, []);
+    const [rows, setRows] = useState([]);
+    useEffect(() => {
+        getProvinces();
+    }, []);
+
+    const getProvinces = () => {
+        axios.get(endpointBaseURL)
+            .then(res => {
+                const types = res.data.body;
+                setRows(types);
+            })
+    }
 
     const handleVisibility = (id) => (event) => {
         Swal.fire({
@@ -118,23 +114,24 @@ function Provinces() {
             confirmButtonText: 'Yes, change it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                //backend call
-                // const baseURL = "http://localhost:8080/admin/location/" + id;
-                // axios
-                //     .patch(baseURL)
-                //     .then((response) => {
-                //         alert(response.data.message);
-                //         axios.get("http://localhost:8080/admin/location")
-                //             .then(res => {
-                //                 const locations = res.data.body;
-                //                 setRows(locations);
-                //             })
-                //     });
-                Swal.fire(
-                    'Status Changed!',
-                    'Status changed successfully.',
-                    'success'
-                )
+                const endpointURL = endpointBaseURL + "/" + id;
+                axios.patch(endpointURL)
+                    .then((response) => {
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Status Changed!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getProvinces())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
+                    });
             }
         })
     };
@@ -164,12 +161,24 @@ function Provinces() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                //backend call
-                Swal.fire(
-                    'Deleted!',
-                    'Province has been deleted.',
-                    'success'
-                )
+                const endpointURL = endpointBaseURL + "/" + id;
+                axios.delete(endpointURL)
+                    .then((response) => {
+                        if (response.data.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                response.data.message,
+                                'success'
+                            ).then(r => getProvinces())
+                        } else {
+                            Swal.fire(
+                                'Failed',
+                                response.data.message,
+                                'error'
+                            ).then(r => {
+                            })
+                        }
+                    });
             }
         })
     };
@@ -230,7 +239,7 @@ function Provinces() {
                                                             return (
                                                                 <TableCell key={column.id} align={column.align}>
                                                                     <div className="more-action more-action-edit"
-                                                                         onClick={editProvince(row.id, row.provinceName)}>
+                                                                         onClick={editProvince(row.id, row.name)}>
                                                                         <FaIcons.FaPencilRuler/>
                                                                     </div>
                                                                     <div className="more-action more-action-delete"
