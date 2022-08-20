@@ -107,7 +107,6 @@ function RoomFacilities() {
         axios.get(endpointBaseURL)
             .then(res => {
                 const facilities = res.data.body;
-                console.log(facilities)
                 setRows(facilities);
             })
     }

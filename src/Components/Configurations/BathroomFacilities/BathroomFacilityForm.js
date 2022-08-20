@@ -89,7 +89,7 @@ function BathroomFacilityForm(props) {
         const data = {
             id: id,
             name: facilityName,
-            image: image
+            image: imageBase64 === "" ? image : imageBase64
         }
 
         axios.put(endpointBaseURL, data)

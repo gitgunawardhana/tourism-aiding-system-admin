@@ -27,7 +27,7 @@ function RoomFacilityForm(props) {
     const [id, setId] = useState(props.id);
     const [facilityName, setFacilityName] = useState(props.facilityName);
     const [image, setImage] = useState(props.image);
-    const [imageBase64, setImageBase64] = useState(props.pricePerKilometer);
+    const [imageBase64, setImageBase64] = useState("");
 
     const handleFacilityNameChange = event => {
         setFacilityName(event.target.value);

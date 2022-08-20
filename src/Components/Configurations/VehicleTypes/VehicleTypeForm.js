@@ -103,7 +103,6 @@ function VehicleTypeForm(props) {
 
     }
 
-
     return (
         <div className="popup-box">
             <div className="box">
