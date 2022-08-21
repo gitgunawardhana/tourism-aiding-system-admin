@@ -9,26 +9,39 @@ export const NavigationPanelData = [
     {
         title: 'Dashboard',
         path: '/',
-        icon: <img src={Dashboard} alt="Dashboard Icon" className="nav-bar-icon"/>
+        icon: <img src={Dashboard} alt="Dashboard Icon" className="nav-bar-icon"/>,
+        subItems: []
+    },
+    {
+        title: 'Locations',
+        path: '/locations',
+        icon: <img src={Locations} alt="Locations Icon" className="nav-bar-icon"/>,
+        subItems: []
     },
     {
         title: 'Vendors',
         path: '/vendors',
-        icon: <img src={Vendors} alt="Vendors Icon" className="nav-bar-icon"/>
+        icon: <img src={Vendors} alt="Vendors Icon" className="nav-bar-icon"/>,
+        subItems: []
     },
     {
         title: 'Users',
         path: '/users',
-        icon: <img src={Users} alt="Users Icon" className="nav-bar-icon"/>
+        icon: <img src={Users} alt="Users Icon" className="nav-bar-icon"/>,
+        subItems: []
     },
     {
         title: 'Configurations',
         path: '/configurations',
-        icon: <img src={Configurations} alt="Configuration Icon" className="nav-bar-icon"/>
-    },
-    {
-        title: 'Locations',
-        path: '/location',
-        icon: <img src={Locations} alt="Locations Icon" className="nav-bar-icon"/>
+        icon: <img src={Configurations} alt="Configuration Icon" className="nav-bar-icon"/>,
+        subItems: [
+            {title: 'Driver Fare', path: '/configurations/driver-fare'},
+            {title: 'Vehicle Types', path: '/configurations/vehicle-types'},
+            {title: 'Accommodation Types', path: '/configurations/accommodation-types'},
+            {title: 'Room Facilities', path: '/configurations/room-facilities'},
+            {title: 'Bathroom Facilities', path: '/configurations/bathroom-facilities'},
+            {title: 'Provinces', path: '/configurations/provinces'},
+            {title: 'Location activities', path: '/configurations/location-activities'},
+        ]
     },
 ]
