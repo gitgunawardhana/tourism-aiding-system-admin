@@ -70,6 +70,11 @@ const columns = [
 
 ];
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function AllLocationAttractions(props) {
 
     const navigate = useNavigate();
@@ -98,6 +103,7 @@ function AllLocationAttractions(props) {
 
     const getLocationAttractions = () => {
         axios.get("http://localhost:8080/admin/location/attraction", {
+            headers: {Authorization: `Bearer ` + token},
             params: {
                 "text": searchText,
                 "locationId": props.locationId
@@ -133,7 +139,7 @@ function AllLocationAttractions(props) {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = "http://localhost:8080/admin/location/attraction/" + id;
-                axios.patch(endpointURL)
+                axios.patch(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(

@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+
 function EditDriverFare() {
 
     //Value variables
@@ -36,7 +38,10 @@ function EditDriverFare() {
     }, []);
 
     const getDriverFare = () => {
-        axios.get("http://localhost:8080/admin/driver/fare-per-night")
+        const config = {
+            headers: {Authorization: `Bearer ` + token}
+        };
+        axios.get("http://localhost:8080/admin/driver/fare-per-night", config)
             .then(res => {
                 const response = res.data.body;
                 setDriverFare(response);
@@ -44,7 +49,11 @@ function EditDriverFare() {
     }
 
     const updateDriverFare = event => {
-        axios.post("http://localhost:8080/admin/driver/fare-per-night", null, {params: {"price": driverFare}})
+        const config = {
+            headers: {Authorization: `Bearer ` + token},
+            params: {"price": driverFare}
+        };
+        axios.post("http://localhost:8080/admin/driver/fare-per-night", null, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(

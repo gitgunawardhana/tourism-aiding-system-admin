@@ -10,6 +10,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import {useNavigate} from "react-router";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function NewLocationAttractionForm(props) {
 
     const [id, setId] = useState("");
@@ -86,7 +91,7 @@ function NewLocationAttractionForm(props) {
             locationAttractionPictures: picturesBase64
         };
 
-        axios.post("http://localhost:8080/admin/location/attraction", location)
+        axios.post("http://localhost:8080/admin/location/attraction", location, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(

@@ -11,6 +11,11 @@ import Swal from "sweetalert2";
 
 const endpointBaseURL = "http://localhost:8080/admin/facility";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function RoomFacilityForm(props) {
 
     const CreateButton = styled(Button)(({theme}) => ({
@@ -58,7 +63,7 @@ function RoomFacilityForm(props) {
             image: imageBase64
         }
 
-        axios.post(endpointBaseURL, data)
+        axios.post(endpointBaseURL, data, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(
@@ -93,7 +98,7 @@ function RoomFacilityForm(props) {
             image: imageBase64 === "" ? image : imageBase64
         }
 
-        axios.put(endpointBaseURL, data)
+        axios.put(endpointBaseURL, data, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(

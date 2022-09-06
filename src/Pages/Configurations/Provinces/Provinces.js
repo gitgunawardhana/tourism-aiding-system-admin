@@ -48,6 +48,11 @@ const columns = [
 
 const endpointBaseURL = "http://localhost:8080/admin/province";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function Provinces() {
 
     //Value variables
@@ -86,17 +91,13 @@ function Provinces() {
         setPage(0);
     };
 
-    const formatResponse = (res) => {
-        return JSON.stringify(res, null, 2);
-    };
-
     const [rows, setRows] = useState([]);
     useEffect(() => {
         getProvinces();
     }, []);
 
     const getProvinces = () => {
-        axios.get(endpointBaseURL)
+        axios.get(endpointBaseURL, config)
             .then(res => {
                 const types = res.data.body;
                 setRows(types);
@@ -115,7 +116,7 @@ function Provinces() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.patch(endpointURL)
+                axios.patch(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(
@@ -162,7 +163,7 @@ function Provinces() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.delete(endpointURL)
+                axios.delete(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(

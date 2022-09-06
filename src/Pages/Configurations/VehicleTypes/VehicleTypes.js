@@ -54,6 +54,11 @@ const columns = [
 
 const endpointBaseURL = "http://localhost:8080/admin/vehicle-type";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function VehicleTypes() {
 
     //Value variables
@@ -103,7 +108,7 @@ function VehicleTypes() {
     }, []);
 
     const getVehicleTypes = () => {
-        axios.get(endpointBaseURL)
+        axios.get(endpointBaseURL, config)
             .then(res => {
                 const types = res.data.body;
                 setRows(types);
@@ -121,7 +126,7 @@ function VehicleTypes() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.patch(endpointURL)
+                axios.patch(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(
@@ -170,7 +175,7 @@ function VehicleTypes() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.delete(endpointURL)
+                axios.delete(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(

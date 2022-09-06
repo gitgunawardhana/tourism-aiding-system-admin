@@ -17,6 +17,11 @@ import {styled} from "@mui/material/styles";
 import {useNavigate} from "react-router";
 import Swal from "sweetalert2";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function ViewForm(props) {
 
     const [id, setId] = useState("");
@@ -41,7 +46,7 @@ function ViewForm(props) {
     }, []);
 
     const getLocationDetails = () => {
-        axios.get("http://localhost:8080/admin/location/" + props.id)
+        axios.get("http://localhost:8080/admin/location/" + props.id, config)
             .then(res => {
                 const response = res.data.body;
                 setId(response.id);
@@ -57,7 +62,7 @@ function ViewForm(props) {
     }
 
     const getProvinces = () => {
-        axios.get("http://localhost:8080/admin/province/names")
+        axios.get("http://localhost:8080/admin/province/names", config)
             .then(res => {
                 const response = res.data.body;
                 setProvinces(response);
@@ -137,7 +142,7 @@ function ViewForm(props) {
             }
         });
         const location = {
-            id:id,
+            id: id,
             name: name,
             longitude: longitude,
             latitude: latitude,
@@ -148,7 +153,7 @@ function ViewForm(props) {
             locationActivities: locationActivityObjects
         };
 
-        axios.put("http://localhost:8080/admin/location", location)
+        axios.put("http://localhost:8080/admin/location", location, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(

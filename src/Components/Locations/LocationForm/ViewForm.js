@@ -13,6 +13,11 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function ViewForm(props) {
 
     const [id, setId] = useState("");
@@ -33,7 +38,7 @@ function ViewForm(props) {
     }, []);
 
     const getLocationDetails = () => {
-        axios.get("http://localhost:8080/admin/location/" + props.id)
+        axios.get("http://localhost:8080/admin/location/" + props.id, config)
             .then(res => {
                 const response = res.data.body;
                 setId(response.id);
@@ -49,7 +54,7 @@ function ViewForm(props) {
     }
 
     const getProvinces = () => {
-        axios.get("http://localhost:8080/admin/province/names")
+        axios.get("http://localhost:8080/admin/province/names", config)
             .then(res => {
                 const response = res.data.body;
                 setProvinces(response);

@@ -55,6 +55,11 @@ const columns = [
 
 const endpointBaseURL = "http://localhost:8080/admin/activity";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function LocationActivities() {
 
     //Value variables
@@ -104,7 +109,7 @@ function LocationActivities() {
     }, []);
 
     const getLocationActivities = () => {
-        axios.get(endpointBaseURL)
+        axios.get(endpointBaseURL, config)
             .then(res => {
                 const facilities = res.data.body;
                 setRows(facilities);
@@ -123,7 +128,7 @@ function LocationActivities() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.patch(endpointURL)
+                axios.patch(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(
@@ -172,7 +177,7 @@ function LocationActivities() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.delete(endpointURL)
+                axios.delete(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(
