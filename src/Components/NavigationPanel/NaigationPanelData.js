@@ -4,6 +4,7 @@ import Vendors from "../../Assets/NavigationPanel/vendors.png";
 import Users from "../../Assets/NavigationPanel/users.png";
 import Configurations from "../../Assets/NavigationPanel/configurations.png";
 import Locations from "../../Assets/NavigationPanel/locations.png";
+import power from "../../Assets/power.png"
 
 export const NavigationPanelData = [
     {
@@ -44,4 +45,11 @@ export const NavigationPanelData = [
             {title: 'Location activities', path: '/configurations/location-activities'},
         ]
     },
+    {
+        title: 'Log out',
+        path: '/',
+        icon: <img src={power} alt="Users Icon" className="nav-bar-icon margine-tp"/>,
+        subItems: []
+    },
+
 ]

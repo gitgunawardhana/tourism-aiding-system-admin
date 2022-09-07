@@ -97,8 +97,8 @@ function NavigationPanel() {
                             </AccordionDetails>
                         </Accordion>
                     ))}
-
                 </div>
+
             </div>
         </>
     )
