@@ -9,6 +9,11 @@ import Swal from "sweetalert2";
 
 const endpointBaseURL = "http://localhost:8080/admin/province";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function ProvinceForm(props) {
 
     const CreateButton = styled(Button)(({theme}) => ({
@@ -34,7 +39,7 @@ function ProvinceForm(props) {
             name: provinceName
         }
 
-        axios.post(endpointBaseURL, data)
+        axios.post(endpointBaseURL, data, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(
@@ -68,7 +73,7 @@ function ProvinceForm(props) {
             name: provinceName
         }
 
-        axios.put(endpointBaseURL, data)
+        axios.put(endpointBaseURL, data, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(

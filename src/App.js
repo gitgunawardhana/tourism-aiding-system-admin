@@ -27,8 +27,26 @@ import EditDriverFare from "./Pages/Configurations/DriverFare/EditDriverFare";
 import SingleUser from "./Pages/Users/SingleUser";
 import SingleAccommodationReservation from "./Pages/Users/UserAccommodationReservations/SingleAccommodationReservation";
 import SingleVehicleReservation from "./Pages/Users/UserVehicleReservations/SingleVehicleReservation";
+import Login from "./Pages/Login/Login";
+
+function setToken(userToken) {
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+}
+
+function getToken() {
+    const tokenString = sessionStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken !== null;
+}
 
 function App() {
+
+    const token = getToken();
+
+    if (!token) {
+        return <Login setToken={setToken}/>
+    }
+
     return (
         <>
             <Router>

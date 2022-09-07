@@ -55,6 +55,11 @@ const columns = [
 
 const endpointBaseURL = "http://localhost:8080/admin/accommodation-type";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function AccommodationTypes() {
 
     //Value variables
@@ -94,17 +99,13 @@ function AccommodationTypes() {
         setPage(0);
     };
 
-    const formatResponse = (res) => {
-        return JSON.stringify(res, null, 2);
-    };
-
     const [rows, setRows] = useState([]);
     useEffect(() => {
         getAccommodationTypes();
     }, []);
 
     const getAccommodationTypes = () => {
-        axios.get(endpointBaseURL)
+        axios.get(endpointBaseURL, config)
             .then(res => {
                 const facilities = res.data.body;
                 setRows(facilities);
@@ -123,7 +124,7 @@ function AccommodationTypes() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.patch(endpointURL)
+                axios.patch(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(
@@ -172,7 +173,7 @@ function AccommodationTypes() {
         }).then((result) => {
             if (result.isConfirmed) {
                 const endpointURL = endpointBaseURL + "/" + id;
-                axios.delete(endpointURL)
+                axios.delete(endpointURL, config)
                     .then((response) => {
                         if (response.data.success) {
                             Swal.fire(
@@ -206,7 +207,7 @@ function AccommodationTypes() {
                             <TextField
                                 className="search-field"
                                 id="accommodation-type-search"
-                                label="Search Accommodation Types"z
+                                label="Search Accommodation Types" z
                                 variant="outlined"
                             />
                         </Grid>

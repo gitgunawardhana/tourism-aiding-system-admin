@@ -6,6 +6,11 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function ViewLocationAttractionForm(props) {
 
     const [id, setId] = useState("");
@@ -22,7 +27,7 @@ function ViewLocationAttractionForm(props) {
 
 
     const getLocationAttractionDetails = () => {
-        axios.get("http://localhost:8080/admin/location/attraction/" + props.id)
+        axios.get("http://localhost:8080/admin/location/attraction/" + props.id, config)
             .then(res => {
                 const response = res.data.body;
                 setId(response.id);

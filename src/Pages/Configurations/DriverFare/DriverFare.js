@@ -7,6 +7,11 @@ import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function DriverFare() {
 
     //Value variables
@@ -15,10 +20,6 @@ function DriverFare() {
     const handleDriverFareChange = event => {
         setDriverFare(event.target.value);
     }
-
-    const formatResponse = (res) => {
-        return JSON.stringify(res, null, 2);
-    };
 
     const CreateButton = styled(Button)(({theme}) => ({
         backgroundColor: '#00565b',
@@ -33,7 +34,7 @@ function DriverFare() {
 
     const navigate = useNavigate();
 
-    function editDriverFare(){
+    function editDriverFare() {
         navigate("/configurations/driver-fare/edit");
     }
 
@@ -42,7 +43,7 @@ function DriverFare() {
     }, []);
 
     const getDriverFare = () => {
-        axios.get("http://localhost:8080/admin/driver/fare-per-night")
+        axios.get("http://localhost:8080/admin/driver/fare-per-night", config)
             .then(res => {
                 const response = res.data.body;
                 setDriverFare(response);

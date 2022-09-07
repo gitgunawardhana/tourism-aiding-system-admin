@@ -10,6 +10,11 @@ import {styled} from "@mui/material/styles";
 import Swal from "sweetalert2";
 import {useNavigate} from "react-router";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function EditLocationAttractionForm(props) {
 
     const [id, setId] = useState("");
@@ -30,7 +35,7 @@ function EditLocationAttractionForm(props) {
 
 
     const getLocationAttractionDetails = () => {
-        axios.get("http://localhost:8080/admin/location/attraction/" + props.id)
+        axios.get("http://localhost:8080/admin/location/attraction/" + props.id, config)
             .then(res => {
                 const response = res.data.body;
                 setId(response.id);
@@ -97,7 +102,7 @@ function EditLocationAttractionForm(props) {
     const handleSubmit = event => {
 
         const location = {
-            id:id,
+            id: id,
             name: name,
             description: description,
             telephone: telephone,
@@ -107,7 +112,7 @@ function EditLocationAttractionForm(props) {
             locationAttractionPictures: picturesBase64
         };
 
-        axios.put("http://localhost:8080/admin/location/attraction", location)
+        axios.put("http://localhost:8080/admin/location/attraction", location, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(

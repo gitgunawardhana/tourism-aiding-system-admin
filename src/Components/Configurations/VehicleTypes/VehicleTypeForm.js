@@ -9,6 +9,11 @@ import Swal from "sweetalert2";
 
 const endpointBaseURL = "http://localhost:8080/admin/vehicle-type";
 
+const token = JSON.parse(sessionStorage.getItem('token'));
+const config = {
+    headers: {Authorization: `Bearer ` + token}
+};
+
 function VehicleTypeForm(props) {
 
     const CreateButton = styled(Button)(({theme}) => ({
@@ -40,7 +45,7 @@ function VehicleTypeForm(props) {
             rentalPricePerKm: pricePerKilometer
         }
 
-        axios.post(endpointBaseURL, data)
+        axios.post(endpointBaseURL, data, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(
@@ -75,7 +80,7 @@ function VehicleTypeForm(props) {
             rentalPricePerKm: pricePerKilometer
         }
 
-        axios.put(endpointBaseURL, data)
+        axios.put(endpointBaseURL, data, config)
             .then(res => {
                 if (res.data.success) {
                     Swal.fire(
